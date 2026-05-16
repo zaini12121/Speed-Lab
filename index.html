@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPEEDLAB // MISSION CONTROL</title>
+    <meta name="description" content="Premium typing speed test and network analysis tool.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#00dbe7",
+                        "on-primary-fixed": "#002022",
+                        "surface-variant": "#2e3637",
+                        "outline": "#849495",
+                        "outline-variant": "#3a494b",
+                        "on-surface": "#dce4e4",
+                        "on-surface-variant": "#b9cacb",
+                    },
+                    fontFamily: {
+                        "orbitron": ["Orbitron"],
+                        "mono": ["IBM Plex Mono"],
+                        "space": ["Space Mono"]
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID" crossorigin="anonymous"></script>
+</head>
+<body class="font-space antialiased h-screen flex flex-col overflow-hidden">
+
+
+    <!-- Mini Permanent Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full z-[56] bg-black/95 backdrop-blur-2xl border-r border-outline-variant w-20 flex flex-col items-center py-8 transition-all duration-300">
+        <div class="mb-10">
+            <h1 class="font-orbitron text-lg text-primary-fixed-dim font-bold tracking-tighter">S<span class="text-[10px] block -mt-1 opacity-50">LAB</span></h1>
+        </div>
+        
+        <nav class="flex flex-col gap-4 w-full px-2">
+            <a class="nav-tab active flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="typing-section" title="Typing Test">
+                <span class="material-symbols-outlined text-[24px]">keyboard</span>
+                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Typing Test</span>
+            </a>
+            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="network-section" title="Network Analysis">
+                <span class="material-symbols-outlined text-[24px]">speed</span>
+                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Network Analysis</span>
+            </a>
+            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="history-section" title="History">
+                <span class="material-symbols-outlined text-[24px]">history</span>
+                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">History</span>
+            </a>
+            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="settings-section" title="Settings">
+                <span class="material-symbols-outlined text-[24px]">settings</span>
+                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Settings</span>
+            </a>
+        </nav>
+
+        <div class="mt-auto flex flex-col gap-4 w-full">
+            <button id="sound-toggle-side" class="p-3 text-on-surface-variant hover:text-primary-fixed-dim transition-colors mx-auto" onclick="toggleSound()" title="Toggle Sound">
+                <span class="material-symbols-outlined text-[20px]" id="sound-icon-side">volume_up</span>
+            </button>
+            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary-fixed-dim/10 text-primary-fixed-dim mx-auto">
+                <span class="material-symbols-outlined text-[18px]">sensors</span>
+            </div>
+
+            <!-- Sidebar Mini Ad -->
+            <div class="px-2 pb-4">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_PUB_ID"
+                     data-ad-slot="SIDEBAR_AD_SLOT"
+                     data-ad-format="autorelaxed"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Top Bar -->
+    <header class="w-full shrink-0 flex justify-between items-center px-5 pl-24 h-14 bg-black/90 backdrop-blur-xl border-b border-outline-variant z-50">
+        <div class="flex items-center gap-3">
+            <span class="font-orbitron text-base font-bold tracking-widest text-primary-fixed-dim">SPEEDLAB</span>
+        </div>
+        <!-- Mode Tabs in top bar -->
+        <div id="typing-mode-tabs" class="flex items-center gap-1">
+            <div class="flex items-center gap-1 glass-card rounded-full px-2 py-1">
+                <!-- Test type -->
+                <button class="type-btn active-type px-3 py-1 font-mono text-xs rounded-full transition-all" data-type="time">TIME</button>
+                <button class="type-btn px-3 py-1 font-mono text-xs rounded-full transition-all" data-type="words">WORDS</button>
+                <button class="type-btn px-3 py-1 font-mono text-xs rounded-full transition-all" data-type="quote">QUOTE</button>
+                <button class="type-btn px-3 py-1 font-mono text-xs rounded-full transition-all" data-type="custom">CUSTOM</button>
+            </div>
+            <div class="w-px h-5 bg-outline-variant mx-1"></div>
+            <!-- Toggles -->
+            <button id="toggle-punct" class="option-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" title="Punctuation">@ . !</button>
+            <button id="toggle-nums" class="option-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" title="Numbers">1 2 3</button>
+            <div class="w-px h-5 bg-outline-variant mx-1"></div>
+            <!-- Amount selector -->
+            <div id="time-selector" class="flex items-center gap-1">
+                <button class="amount-btn active-amount px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="15">15</button>
+                <button class="amount-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="30">30</button>
+                <button class="amount-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="60">60</button>
+                <button class="amount-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="120">120</button>
+            </div>
+            <div id="words-selector" class="hidden flex items-center gap-1">
+                <button class="amount-btn active-amount px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="25">25</button>
+                <button class="amount-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="50">50</button>
+                <button class="amount-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="100">100</button>
+            </div>
+        </div>
+        <div class="flex items-center gap-1">
+            <button class="p-2 text-on-surface-variant hover:text-primary-fixed-dim transition-colors">
+                <span class="material-symbols-outlined text-[20px]">notifications</span>
+            </button>
+            <button class="p-2 text-on-surface-variant hover:text-primary-fixed-dim transition-colors">
+                <span class="material-symbols-outlined text-[20px]">account_circle</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="flex-1 w-full overflow-hidden flex justify-center pl-24 pr-4 md:pr-10 pb-2 bg-transparent">
+        <div class="max-w-[1100px] w-full h-full">
+
+            <!-- ======================== TYPING SECTION ======================== -->
+            <section id="typing-section" class="tool-section active h-full">
+
+                <!-- Stats Row -->
+                <div class="grid grid-cols-4 gap-3 mb-4">
+                    <div class="glass-card p-4 rounded-2xl flex flex-col">
+                        <span class="font-mono text-outline uppercase tracking-widest text-[9px] mb-1">WPM</span>
+                        <div id="wpm-val" class="font-orbitron text-3xl text-primary-fixed-dim">000</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl flex flex-col">
+                        <span class="font-mono text-outline uppercase tracking-widest text-[9px] mb-1">RAW WPM</span>
+                        <div id="raw-val" class="font-orbitron text-3xl text-on-surface-variant">000</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl flex flex-col">
+                        <span class="font-mono text-outline uppercase tracking-widest text-[9px] mb-1">ACCURACY</span>
+                        <div id="acc-val" class="font-orbitron text-3xl text-primary-fixed-dim">100%</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl flex flex-col">
+                        <span class="font-mono text-outline uppercase tracking-widest text-[9px] mb-1" id="stat-label">TIMER</span>
+                        <div id="timer-val" class="font-orbitron text-3xl text-primary-fixed-dim">—</div>
+                    </div>
+                </div>
+
+                <!-- Typing Area -->
+                <div class="glass-card p-6 md:p-8 rounded-[20px] relative flex-1 flex flex-col overflow-hidden" id="typing-area">
+                    <div class="absolute top-3 left-5 font-mono text-outline opacity-30 text-[8px] tracking-widest">TERMINAL_INPUT_BUFFER</div>
+                    <input type="text" id="hidden-input" autocomplete="off" spellcheck="false" class="absolute opacity-0 w-0 h-0 pointer-events-none">
+
+                    <!-- Custom text input (hidden by default) -->
+                    <div id="custom-input-area" class="hidden mb-4">
+                        <textarea id="custom-text-input" rows="3" placeholder="Apna text yahan likhein..." class="w-full bg-black/30 border border-outline-variant rounded-xl p-3 font-mono text-sm text-on-surface resize-none focus:outline-none focus:border-primary-fixed-dim"></textarea>
+                        <button onclick="setCustomText()" class="mt-2 px-6 py-2 bg-primary-fixed-dim text-on-primary-fixed font-mono text-xs rounded-full hover:brightness-110 transition-all">START CUSTOM TEST</button>
+                    </div>
+
+                    <!-- Quote selector (hidden by default) -->
+                    <div id="quote-selector" class="hidden mb-4 flex items-center gap-2">
+                        <span class="font-mono text-[11px] text-outline">DIFFICULTY:</span>
+                        <button class="diff-btn active-diff px-4 py-1 font-mono text-xs rounded-full glass-card transition-all" data-diff="easy">EASY</button>
+                        <button class="diff-btn px-4 py-1 font-mono text-xs rounded-full glass-card transition-all" data-diff="medium">MEDIUM</button>
+                        <button class="diff-btn px-4 py-1 font-mono text-xs rounded-full glass-card transition-all" data-diff="hard">HARD</button>
+                    </div>
+
+                    <div class="font-space text-xl md:text-2xl leading-loose text-on-surface/30 select-none overflow-hidden flex-1" id="typing-text" style="word-break: break-word;"></div>
+
+                    <!-- Bottom bar of typing area -->
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-outline-variant/50">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-[10px] text-outline">TAB = restart &nbsp;·&nbsp; ESC = reset</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button id="btn-redo" class="p-2 glass-card hover:text-primary-fixed-dim text-on-surface-variant transition-all rounded-full" onclick="restartTest()" title="Restart (Tab)">
+                                <span class="material-symbols-outlined text-[18px]">replay</span>
+                            </button>
+                            <button id="btn-next" class="p-2 glass-card hover:text-primary-fixed-dim text-on-surface-variant transition-all rounded-full" onclick="nextTest()" title="Next">
+                                <span class="material-symbols-outlined text-[18px]">skip_next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ======================== NETWORK SECTION ======================== -->
+            <section id="network-section" class="tool-section h-full">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
+                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
+                        NETWORK DIAGNOSTICS
+                    </h2>
+                    <span class="font-mono text-outline text-[10px]">LOC: SUBSTATION-ANALYSIS</span>
+                </div>
+                <div class="glass-card p-6 flex flex-col items-center rounded-[20px]">
+                    <div class="absolute inset-0 opacity-5 pointer-events-none rounded-[20px]" style="background-image: linear-gradient(#00dbe7 1px, transparent 1px), linear-gradient(90deg, #00dbe7 1px, transparent 1px); background-size: 40px 40px;"></div>
+                    <div class="relative w-48 h-48 flex items-center justify-center mb-5">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
+                            <circle class="text-slate-800" cx="100" cy="100" fill="transparent" r="88" stroke="currentColor" stroke-width="6"></circle>
+                            <circle id="progress-circle" class="text-primary-fixed-dim" cx="100" cy="100" fill="transparent" r="88" stroke="currentColor" stroke-width="10" style="transition: stroke-dashoffset 0.5s ease-out;"></circle>
+                        </svg>
+                        <div class="absolute flex flex-col items-center">
+                            <span id="phase-name" class="font-mono text-outline tracking-widest uppercase text-[9px] mb-1">READY</span>
+                            <span id="speed-val" class="font-orbitron text-4xl text-primary-fixed-dim">0.0</span>
+                            <span class="font-mono text-primary-fixed-dim text-[10px] tracking-widest">MBPS</span>
+                            <span id="phase-status" class="font-mono text-[7px] text-outline uppercase mt-1 opacity-50">INITIALIZING...</span>
+                        </div>
+                    </div>
+                    <div id="internet-results" class="grid grid-cols-3 gap-6 w-full max-w-xl mb-5 opacity-0 transition-opacity duration-500">
+                        <div class="text-center">
+                            <div class="font-mono text-outline uppercase tracking-widest mb-1 text-[9px]">Latency</div>
+                            <div class="font-orbitron text-xl text-white"><span id="res-ping">--</span><span class="text-xs font-mono text-outline ml-1">MS</span></div>
+                        </div>
+                        <div class="text-center border-x border-outline-variant">
+                            <div class="font-mono text-outline uppercase tracking-widest mb-1 text-[9px]">Download</div>
+                            <div class="font-orbitron text-xl text-white"><span id="res-down">--</span><span class="text-xs font-mono text-outline ml-1">MBPS</span></div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-mono text-outline uppercase tracking-widest mb-1 text-[9px]">Upload</div>
+                            <div class="font-orbitron text-xl text-white"><span id="res-up">--</span><span class="text-xs font-mono text-outline ml-1">MBPS</span></div>
+                        </div>
+                    </div>
+                    <button id="btn-start-speed" class="bg-primary-fixed-dim text-on-primary-fixed px-10 py-3 font-orbitron text-xs tracking-widest hover:brightness-110 transition-all active:scale-95 rounded-full neon-glow">
+                        START ANALYSIS
+                    </button>
+                </div>
+            </section>
+
+            <!-- ======================== HISTORY SECTION ======================== -->
+            <section id="history-section" class="tool-section h-full">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
+                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
+                        SESSION HISTORY
+                    </h2>
+                    <button onclick="clearHistory()" class="px-4 py-2 font-mono text-xs text-red-400 hover:text-red-300 glass-card rounded-full transition-all">CLEAR ALL</button>
+                </div>
+                <div id="history-list" class="space-y-3 overflow-y-auto" style="max-height: calc(100vh - 200px);">
+                    <div class="font-mono text-outline text-sm text-center py-10">No sessions recorded yet.</div>
+                </div>
+            </section>
+
+            <!-- ======================== SETTINGS SECTION ======================== -->
+            <section id="settings-section" class="tool-section h-full">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
+                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
+                        SETTINGS
+                    </h2>
+                </div>
+                <div class="glass-card p-6 rounded-[20px] space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="font-mono text-sm text-on-surface">Sound Effects</div>
+                            <div class="font-mono text-[10px] text-outline mt-1">Keypress click sounds</div>
+                        </div>
+                        <button class="toggle-btn" id="sound-toggle-2" onclick="toggleSound()"><span class="toggle-knob"></span></button>
+                    </div>
+
+                    <div class="border-t border-outline-variant"></div>
+                    <div>
+                        <div class="font-mono text-sm text-on-surface mb-3">Caret Style</div>
+                        <div class="flex gap-2">
+                            <button class="caret-btn active-caret px-4 py-2 font-mono text-xs glass-card rounded-full" data-caret="line" onclick="setCaretStyle('line')">LINE |</button>
+                            <button class="caret-btn px-4 py-2 font-mono text-xs glass-card rounded-full" data-caret="block" onclick="setCaretStyle('block')">BLOCK ▌</button>
+                            <button class="caret-btn px-4 py-2 font-mono text-xs glass-card rounded-full" data-caret="underline" onclick="setCaretStyle('underline')">UNDERLINE _</button>
+                        </div>
+                    </div>
+                    <div class="border-t border-outline-variant"></div>
+                    <div>
+                        <div class="font-mono text-sm text-on-surface mb-1">Font Size</div>
+                        <input type="range" min="14" max="32" value="22" id="font-size-slider" class="w-full accent-primary-fixed-dim" oninput="setFontSize(this.value)">
+                        <div class="flex justify-between font-mono text-[9px] text-outline mt-1"><span>14px</span><span id="font-size-label">22px</span><span>32px</span></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+
+    <!-- Footer -->
+    <footer class="w-full shrink-0 flex justify-between items-center px-6 pl-24 py-2 bg-black/50 backdrop-blur-md border-t border-outline-variant z-50">
+        <div class="font-mono text-[9px] text-outline">© 2026 SPEEDLAB TACTICAL SYSTEMS</div>
+        <div class="flex gap-6">
+            <span class="font-mono text-[9px] text-primary-fixed-dim uppercase tracking-widest">System: Optimal</span>
+        </div>
+    </footer>
+
+    <!-- Right Side Vertical Ad (Alehda Side Pe) -->
+    <div class="fixed right-4 top-20 bottom-16 w-32 hidden xl:flex flex-col items-center justify-center z-40">
+        <div class="font-mono text-[8px] text-outline mb-2 uppercase tracking-widest opacity-30">Advertisement</div>
+        <div class="w-full h-full glass-card rounded-xl overflow-hidden border border-white/5 flex items-center justify-center">
+            <ins class="adsbygoogle"
+                 style="display:block; width:120px; height:600px"
+                 data-ad-client="ca-pub-YOUR_PUB_ID"
+                 data-ad-slot="RIGHT_SIDEBAR_AD_SLOT"
+                 data-ad-format="vertical"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <!-- ======================== RESULT MODAL ======================== -->
+    <div id="result-overlay" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-2xl hidden items-center justify-center p-4">
+        <div class="glass-card p-8 rounded-[30px] max-w-3xl w-full border border-primary-fixed-dim/20 relative overflow-hidden">
+            <!-- Header -->
+            <div class="text-center mb-6">
+                <div class="font-mono text-primary-fixed-dim text-[10px] tracking-[0.8em] mb-2 animate-pulse">CONGRATULATIONS // SESSION COMPLETE</div>
+                <div id="result-rating" class="font-orbitron text-5xl text-primary-fixed-dim mb-1">ELITE</div>
+                <div id="result-rank-msg" class="font-mono text-outline text-xs"></div>
+            </div>
+
+            <!-- Main Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="glass-card p-4 rounded-2xl text-center">
+                    <div class="font-mono text-outline text-[9px] mb-1">WPM</div>
+                    <div id="res-wpm" class="font-orbitron text-3xl text-primary-fixed-dim">000</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center">
+                    <div class="font-mono text-outline text-[9px] mb-1">RAW WPM</div>
+                    <div id="res-raw" class="font-orbitron text-3xl text-on-surface-variant">000</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center">
+                    <div class="font-mono text-outline text-[9px] mb-1">ACCURACY</div>
+                    <div id="res-acc" class="font-orbitron text-3xl text-primary-fixed-dim">100%</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center">
+                    <div class="font-mono text-outline text-[9px] mb-1">CONSISTENCY</div>
+                    <div id="res-consistency" class="font-orbitron text-3xl text-on-surface-variant">0%</div>
+                </div>
+            </div>
+
+            <!-- WPM Graph -->
+            <div class="glass-card p-4 rounded-2xl mb-5">
+                <div class="font-mono text-[9px] text-outline mb-2 tracking-widest">WPM OVER TIME</div>
+                <canvas id="wpm-chart" height="80" class="w-full"></canvas>
+            </div>
+
+            <!-- Error info + time -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="glass-card p-3 rounded-xl text-center">
+                    <div class="font-mono text-outline text-[9px] mb-1">ERRORS</div>
+                    <div id="res-errors" class="font-orbitron text-2xl text-red-400">0</div>
+                </div>
+                <div class="glass-card p-3 rounded-xl text-center">
+                    <div class="font-mono text-outline text-[9px] mb-1">CHARS</div>
+                    <div id="res-chars" class="font-orbitron text-2xl text-on-surface">0</div>
+                </div>
+                <div class="glass-card p-3 rounded-xl text-center">
+                    <div class="font-mono text-outline text-[9px] mb-1">TIME</div>
+                    <div id="res-time" class="font-orbitron text-2xl text-on-surface">0s</div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-3 justify-center">
+                <button class="px-8 py-3 bg-primary-fixed-dim text-on-primary-fixed font-orbitron text-xs tracking-widest rounded-full hover:brightness-110 transition-all neon-glow" onclick="closeResult()">
+                    NEW SESSION
+                </button>
+                <button class="px-8 py-3 border border-outline-variant text-on-surface-variant font-orbitron text-xs tracking-widest rounded-full hover:border-primary-fixed-dim hover:text-primary-fixed-dim transition-all" onclick="restartSameTest()">
+                    RETRY SAME
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
