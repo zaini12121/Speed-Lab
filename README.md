@@ -2,6 +2,8 @@
 
 A premium, high-performance web application for typing speed diagnostics and network analysis. Designed with a sleek, glassmorphic "Mission Control" aesthetic, SPEEDLAB provides a professional-grade environment for testing your productivity tools.
 
+### 🔗 [LIVE DEMO](https://zaini12121.github.io/Speed-Lab/)
+
 ![SpeedLab Preview](https://via.placeholder.com/1200x600/050a0a/00dbe7?text=SPEEDLAB+MISSION+CONTROL)
 
 ## ✨ Features
