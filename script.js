@@ -298,24 +298,25 @@ let audioCtx = null;
 function playClick() {
     if (!soundOn) return;
     try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!audioCtx) audioCtx = new AudioContext();
         if (audioCtx.state === 'suspended') audioCtx.resume();
         
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         
-        osc.type = 'square'; // Sounds more like a mechanical click
-        osc.frequency.setValueAtTime(150 + Math.random() * 50, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.03);
+        // Louder, simpler click
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800 + (Math.random() * 200), audioCtx.currentTime);
         
-        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+        gain.gain.setValueAtTime(0.8, audioCtx.currentTime); // Volume increased from 0.1 to 0.8
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
         
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         
         osc.start(audioCtx.currentTime);
-        osc.stop(audioCtx.currentTime + 0.03);
+        osc.stop(audioCtx.currentTime + 0.06);
     } catch(e) { console.error("Audio error:", e); }
 }
 
