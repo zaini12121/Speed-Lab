@@ -30,6 +30,13 @@ function toggleSound() {
         sideIcon.textContent = soundOn ? 'volume_up' : 'volume_off';
         sideIcon.classList.toggle('text-primary-fixed-dim', soundOn);
     }
+    
+    // Initialize AudioContext on user interaction to prevent browser blocking
+    if (soundOn) {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        playClick(); // Play a test click
+    }
 }
 function setCaretStyle(style) {
     caretStyle = style;
@@ -289,16 +296,27 @@ function startTimer() {
 // ===== SOUND =====
 let audioCtx = null;
 function playClick() {
+    if (!soundOn) return;
     try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.frequency.value = 800 + Math.random() * 200;
-        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
-        osc.start(); osc.stop(audioCtx.currentTime + 0.05);
-    } catch(e) {}
+        
+        osc.type = 'square'; // Sounds more like a mechanical click
+        osc.frequency.setValueAtTime(150 + Math.random() * 50, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.03);
+        
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.03);
+    } catch(e) { console.error("Audio error:", e); }
 }
 
 // ===== END TEST =====
