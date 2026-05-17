@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://your-vercel-domain.vercel.app/sitemap.xml
+Sitemap: https://speed-lab.vercel.app/sitemap.xml
