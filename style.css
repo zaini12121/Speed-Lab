@@ -15,6 +15,27 @@ html, body {
     background-size: 28px 28px;
     color: #dce4e4;
     overflow: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 219, 231, 0) 0%,
+        rgba(0, 219, 231, 0.02) 50%,
+        rgba(0, 219, 231, 0) 100%
+    );
+    background-size: 100% 300px;
+    animation: scanline 12s linear infinite;
+    pointer-events: none;
+    z-index: 55;
+}
+@keyframes scanline {
+    0% { background-position-y: -300px; }
+    100% { background-position-y: 100%; }
 }
 
 
@@ -41,11 +62,19 @@ html, body {
 .tool-section.active {
     display: flex; flex-direction: column;
     opacity: 1 !important;
-    animation: fadeUp 0.4s ease-out forwards;
+    animation: premiumTabWipe 0.55s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
-@keyframes fadeUp {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+@keyframes premiumTabWipe {
+    0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.985);
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
 }
 
 /* ===== NAV TABS ===== */
@@ -104,10 +133,8 @@ html, body {
 .char.correct { color: #ffffff; }
 .char.incorrect { color: #ff4444; background: rgba(255,68,68,0.1); border-radius: 2px; }
 
-/* Caret styles */
-.char.current.caret-line { border-left: 2px solid var(--accent); margin-left: -1px; animation: caretBlink 1s step-end infinite; }
-.char.current.caret-block { background: rgba(0,219,231,0.25); animation: caretBlink 1s step-end infinite; }
-.char.current.caret-underline { border-bottom: 2px solid var(--accent); animation: caretBlink 1s step-end infinite; }
+/* Caret active focus text styling */
+.char.current { color: var(--accent); text-shadow: 0 0 6px var(--accent-glow); }
 
 @keyframes caretBlink { 50% { border-color: transparent; background: transparent; } }
 
@@ -155,4 +182,58 @@ html, body {
 #progress-circle { stroke-dasharray: 553; stroke-dashoffset: 553; }
 
 /* ===== RESULT OVERLAY ===== */
-#result-overlay.show { display: flex !important; }
+#result-overlay {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+#result-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+    display: flex !important;
+}
+
+/* ===== CUSTOM CARET GLIDE ===== */
+#custom-caret {
+    position: absolute;
+    pointer-events: none;
+    z-index: 5;
+    background: transparent;
+    transition: left 0.08s cubic-bezier(0.19, 1, 0.22, 1), 
+                top 0.08s cubic-bezier(0.19, 1, 0.22, 1), 
+                width 0.08s cubic-bezier(0.19, 1, 0.22, 1), 
+                height 0.08s cubic-bezier(0.19, 1, 0.22, 1);
+}
+#custom-caret.caret-line {
+    border-left: 2.5px solid var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+    animation: caretBlink 1s step-end infinite;
+}
+#custom-caret.caret-block {
+    background: rgba(0, 219, 231, 0.22);
+    box-shadow: 0 0 8px rgba(0, 219, 231, 0.2);
+    border-radius: 2px;
+    animation: caretBlink 1s step-end infinite;
+}
+#custom-caret.caret-underline {
+    border-bottom: 2.5px solid var(--accent);
+    box-shadow: 0 4px 8px -2px var(--accent-glow);
+    animation: caretBlink 1s step-end infinite;
+}
+
+/* ===== STAGGER MODAL ITEMS ===== */
+#result-overlay.show .modal-animate-1 { animation: slideUpStagger 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; animation-delay: 0.18s; }
+#result-overlay.show .modal-animate-2 { animation: slideUpStagger 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; animation-delay: 0.28s; }
+#result-overlay.show .modal-animate-3 { animation: slideUpStagger 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; animation-delay: 0.38s; }
+#result-overlay.show .modal-animate-4 { animation: slideUpStagger 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; animation-delay: 0.48s; }
+
+@keyframes slideUpStagger {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

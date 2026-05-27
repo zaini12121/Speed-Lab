@@ -88,6 +88,21 @@
                 <span class="material-symbols-outlined text-[24px]">settings</span>
                 <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Settings</span>
             </a>
+
+            <div class="w-10 h-px bg-outline-variant/50 mx-auto my-1"></div>
+
+            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="about-section" title="About Us">
+                <span class="material-symbols-outlined text-[24px]">info</span>
+                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">About Us</span>
+            </a>
+            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="contact-section" title="Contact Us">
+                <span class="material-symbols-outlined text-[24px]">mail</span>
+                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Contact Us</span>
+            </a>
+            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="privacy-section" title="Privacy Policy">
+                <span class="material-symbols-outlined text-[24px]">shield</span>
+                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Privacy Policy</span>
+            </a>
         </nav>
 
         <div class="mt-auto flex flex-col gap-4 w-full">
@@ -172,6 +187,7 @@
 
                 <!-- Typing Area -->
                 <div class="glass-card p-6 md:p-8 rounded-[20px] relative flex-1 flex flex-col overflow-hidden" id="typing-area">
+                    <canvas id="sparks-canvas" class="absolute inset-0 pointer-events-none z-10"></canvas>
                     <div class="absolute top-3 left-5 font-mono text-outline opacity-30 text-[8px] tracking-widest">TERMINAL_INPUT_BUFFER</div>
                     <input type="text" id="hidden-input" autocomplete="off" spellcheck="false" class="absolute opacity-0 w-0 h-0 pointer-events-none">
 
@@ -222,7 +238,24 @@
                     <div class="absolute inset-0 opacity-5 pointer-events-none rounded-[20px]" style="background-image: linear-gradient(#00dbe7 1px, transparent 1px), linear-gradient(90deg, #00dbe7 1px, transparent 1px); background-size: 40px 40px;"></div>
                     <div class="relative w-48 h-48 flex items-center justify-center mb-5">
                         <svg class="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="radar-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+                                    <stop offset="0%" stop-color="rgba(0, 219, 231, 0)"></stop>
+                                    <stop offset="100%" stop-color="rgba(0, 219, 231, 0.8)"></stop>
+                                </linearGradient>
+                            </defs>
+                            <!-- Concentric radar circles -->
                             <circle class="text-slate-800" cx="100" cy="100" fill="transparent" r="88" stroke="currentColor" stroke-width="6"></circle>
+                            <circle class="text-slate-800/25" cx="100" cy="100" fill="transparent" r="62" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"></circle>
+                            <circle class="text-slate-800/25" cx="100" cy="100" fill="transparent" r="36" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"></circle>
+                            <!-- Radar lines -->
+                            <line x1="12" y1="100" x2="188" y2="100" stroke="rgba(58, 73, 75, 0.2)" stroke-width="1"></line>
+                            <line x1="100" y1="12" x2="100" y2="188" stroke="rgba(58, 73, 75, 0.2)" stroke-width="1"></line>
+                            <!-- Sweeping beam -->
+                            <g id="radar-sweep" class="origin-center animate-[spin_4s_linear_infinite] hidden">
+                                <line x1="100" y1="100" x2="100" y2="12" stroke="url(#radar-grad)" stroke-width="3" stroke-linecap="round"></line>
+                                <polygon points="100,100 100,12 80,15" fill="rgba(0, 219, 231, 0.08)"></polygon>
+                            </g>
                             <circle id="progress-circle" class="text-primary-fixed-dim" cx="100" cy="100" fill="transparent" r="88" stroke="currentColor" stroke-width="10" style="transition: stroke-dashoffset 0.5s ease-out;"></circle>
                         </svg>
                         <div class="absolute flex flex-col items-center">
@@ -300,6 +333,384 @@
                     </div>
                 </div>
             </section>
+
+            <!-- ======================== ABOUT US SECTION ======================== -->
+            <section id="about-section" class="tool-section h-full overflow-y-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
+                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
+                        ABOUT US
+                    </h2>
+                    <span class="font-mono text-outline text-[10px]">LOC: CORE-MANIFEST</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-[20px] space-y-6 mb-4">
+                    <!-- Mission -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">rocket_launch</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">OUR MISSION</h3>
+                        </div>
+                        <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
+                            SPEEDLAB is built for those who demand precision. We provide a premium, distraction-free environment to test and improve your typing speed, accuracy, and consistency. Our network diagnostics module also lets you analyze your internet connection latency, download, and upload speeds — all in one sleek, military-grade interface.
+                        </p>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <!-- What We Offer -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">deployed_code</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">WHAT WE OFFER</h3>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="glass-card p-4 rounded-xl">
+                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">keyboard</span>
+                                    Typing Speed Test
+                                </div>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed">Multiple modes — Time, Words, Quote, and Custom. Track your WPM, accuracy, and consistency with detailed session analytics.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-xl">
+                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">speed</span>
+                                    Network Diagnostics
+                                </div>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed">Analyze ping latency, download speeds, and upload throughput with our real-time diagnostic radar interface.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-xl">
+                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">history</span>
+                                    Session History
+                                </div>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed">All your typing sessions are saved locally. Review your progress over time and identify areas for improvement.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-xl">
+                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">tune</span>
+                                    Full Customization
+                                </div>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed">Sound effects, caret styles, font sizes, difficulty levels — configure every detail to match your preferences.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <!-- Tech Stack -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">code</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">BUILT WITH</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">HTML5</span>
+                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">TailwindCSS</span>
+                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">Vanilla JavaScript</span>
+                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">Web Audio API</span>
+                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">Canvas API</span>
+                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">Cloudflare Speed API</span>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <!-- Version -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">verified</span>
+                            <span class="font-mono text-[11px] text-outline">VERSION 2.0 // PREMIUM EDITION</span>
+                        </div>
+                        <span class="font-mono text-[10px] text-primary-fixed-dim">© 2026 SPEEDLAB</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================== CONTACT US SECTION ======================== -->
+            <section id="contact-section" class="tool-section h-full overflow-y-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
+                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
+                        CONTACT US
+                    </h2>
+                    <span class="font-mono text-outline text-[10px]">LOC: COMMS-CHANNEL</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <!-- Contact Info -->
+                    <div class="glass-card p-6 md:p-8 rounded-[20px]">
+                        <div class="flex items-center gap-2 mb-5">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">hub</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">CONNECT WITH ME</h3>
+                        </div>
+                        <div class="space-y-5">
+                            <!-- Email -->
+                            <a href="mailto:zzawar521@gmail.com" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
+                                <div class="w-11 h-11 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0 group-hover:bg-primary-fixed-dim/20 transition-colors">
+                                    <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">mail</span>
+                                </div>
+                                <div>
+                                    <div class="font-mono text-[10px] text-outline uppercase tracking-widest">EMAIL</div>
+                                    <div class="font-mono text-sm text-on-surface group-hover:text-primary-fixed-dim transition-colors">zzawar521@gmail.com</div>
+                                </div>
+                                <span class="material-symbols-outlined text-outline text-[16px] ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
+                            </a>
+                            <!-- Portfolio -->
+                            <a href="https://zainulabdin-portfolio.vercel.app" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
+                                <div class="w-11 h-11 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0 group-hover:bg-primary-fixed-dim/20 transition-colors">
+                                    <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">web</span>
+                                </div>
+                                <div>
+                                    <div class="font-mono text-[10px] text-outline uppercase tracking-widest">PORTFOLIO</div>
+                                    <div class="font-mono text-sm text-on-surface group-hover:text-primary-fixed-dim transition-colors">zainulabdin-portfolio.vercel.app</div>
+                                </div>
+                                <span class="material-symbols-outlined text-outline text-[16px] ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
+                            </a>
+                            <!-- GitHub -->
+                            <a href="https://github.com/zaini12121" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
+                                <div class="w-11 h-11 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0 group-hover:bg-primary-fixed-dim/20 transition-colors">
+                                    <svg class="w-5 h-5 text-primary-fixed-dim" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                </div>
+                                <div>
+                                    <div class="font-mono text-[10px] text-outline uppercase tracking-widest">GITHUB</div>
+                                    <div class="font-mono text-sm text-on-surface group-hover:text-primary-fixed-dim transition-colors">zaini12121</div>
+                                </div>
+                                <span class="material-symbols-outlined text-outline text-[16px] ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
+                            </a>
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/in/zain-ul-abdin-281985378/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
+                                <div class="w-11 h-11 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0 group-hover:bg-primary-fixed-dim/20 transition-colors">
+                                    <svg class="w-5 h-5 text-primary-fixed-dim" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                </div>
+                                <div>
+                                    <div class="font-mono text-[10px] text-outline uppercase tracking-widest">LINKEDIN</div>
+                                    <div class="font-mono text-sm text-on-surface group-hover:text-primary-fixed-dim transition-colors">Zain Ul Abdin</div>
+                                </div>
+                                <span class="material-symbols-outlined text-outline text-[16px] ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right side cards -->
+                    <div class="space-y-4">
+                        <div class="glass-card p-6 rounded-[20px]">
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">language</span>
+                                <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">WEBSITE</h3>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">speed</span>
+                                    </div>
+                                    <div>
+                                        <div class="font-mono text-[10px] text-outline uppercase tracking-widest">SPEEDLAB</div>
+                                        <div class="font-mono text-sm text-on-surface">speed-lab.vercel.app</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">location_on</span>
+                                    </div>
+                                    <div>
+                                        <div class="font-mono text-[10px] text-outline uppercase tracking-widest">HQ LOCATION</div>
+                                        <div class="font-mono text-sm text-on-surface">Worldwide // Remote Operations</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-[20px]">
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">schedule</span>
+                                <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">RESPONSE TIME</h3>
+                            </div>
+                            <p class="font-mono text-[11px] text-outline leading-relaxed mb-3">
+                                We typically respond within 24-48 hours. For urgent matters, please include "[URGENT]" in your email subject line.
+                            </p>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full shadow-[0_0_6px_rgba(74,222,128,0.5)] animate-pulse"></span>
+                                <span class="font-mono text-[10px] text-green-400">COMM CHANNELS ACTIVE</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-[20px]">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">bug_report</span>
+                                <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">BUG REPORTS</h3>
+                            </div>
+                            <p class="font-mono text-[11px] text-outline leading-relaxed">
+                                Found a bug or want to request a feature? Open an issue on our <a href="https://github.com/zaini12121" target="_blank" class="text-primary-fixed-dim hover:underline">GitHub repository</a> or send an email directly.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================== PRIVACY POLICY SECTION ======================== -->
+            <section id="privacy-section" class="tool-section h-full overflow-y-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
+                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
+                        PRIVACY POLICY
+                    </h2>
+                    <span class="font-mono text-outline text-[10px]">LAST UPDATED: MAY 2026</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-[20px] space-y-6 mb-4">
+                    <!-- Intro -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">shield</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">OVERVIEW</h3>
+                        </div>
+                        <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
+                            SPEEDLAB ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website at <span class="text-primary-fixed-dim">speed-lab.vercel.app</span>.
+                        </p>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <!-- Data Collection -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">database</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">DATA COLLECTION</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="glass-card p-4 rounded-xl">
+                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+                                    Local Storage Only
+                                </div>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed">Your typing test results and session history are stored exclusively in your browser's localStorage. We do NOT send any typing data to external servers.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-xl">
+                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>
+                                    Network Speed Test
+                                </div>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed">The network diagnostics feature connects to third-party servers (Google, Cloudflare, httpbin.org) solely to measure your connection speed. No personal data is transmitted during these tests.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-xl">
+                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                                    Advertising
+                                </div>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed">We use Google AdSense to display advertisements. Google may use cookies and web beacons to serve personalized ads based on your browsing activity. You can manage ad preferences at <span class="text-primary-fixed-dim">adssettings.google.com</span>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <!-- Cookies -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">cookie</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">COOKIES</h3>
+                        </div>
+                        <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
+                            SPEEDLAB itself does not set any cookies. However, third-party services such as Google AdSense may place cookies on your browser. These cookies are governed by their respective privacy policies. You can manage or disable cookies through your browser settings.
+                        </p>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <!-- Third Party -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">link</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">THIRD-PARTY SERVICES</h3>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-3 font-mono text-[11px] text-on-surface-variant">
+                                <span class="text-primary-fixed-dim">›</span>
+                                <span><strong class="text-on-surface">Google AdSense</strong> — Advertising and monetization</span>
+                            </div>
+                            <div class="flex items-center gap-3 font-mono text-[11px] text-on-surface-variant">
+                                <span class="text-primary-fixed-dim">›</span>
+                                <span><strong class="text-on-surface">Google Fonts</strong> — Typography (Orbitron, IBM Plex Mono, Space Mono)</span>
+                            </div>
+                            <div class="flex items-center gap-3 font-mono text-[11px] text-on-surface-variant">
+                                <span class="text-primary-fixed-dim">›</span>
+                                <span><strong class="text-on-surface">Cloudflare</strong> — Speed test data endpoint</span>
+                            </div>
+                            <div class="flex items-center gap-3 font-mono text-[11px] text-on-surface-variant">
+                                <span class="text-primary-fixed-dim">›</span>
+                                <span><strong class="text-on-surface">Vercel</strong> — Website hosting</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <!-- User Rights -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">admin_panel_settings</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">YOUR RIGHTS</h3>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
+                                <p class="font-mono text-[11px] text-on-surface-variant">You can clear all locally stored data at any time from the History section.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
+                                <p class="font-mono text-[11px] text-on-surface-variant">You can disable ad personalization through Google Ad Settings.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
+                                <p class="font-mono text-[11px] text-on-surface-variant">You can manage cookies through your browser's privacy controls.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
+                                <p class="font-mono text-[11px] text-on-surface-variant">No account or personal information is required to use SPEEDLAB.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <!-- Children -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">child_care</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">CHILDREN'S PRIVACY</h3>
+                        </div>
+                        <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
+                            SPEEDLAB does not knowingly collect information from children under 13. Our website is intended for general audiences. If you believe a child has provided personal data, please contact us immediately.
+                        </p>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <!-- Changes -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">update</span>
+                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">POLICY UPDATES</h3>
+                        </div>
+                        <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
+                            We may update this Privacy Policy from time to time. Changes will be reflected on this page with an updated revision date. We encourage you to review this policy periodically.
+                        </p>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <!-- Contact for Privacy -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">mail</span>
+                            <span class="font-mono text-[11px] text-outline">Questions? Contact us at <span class="text-primary-fixed-dim">support@speedlab.app</span></span>
+                        </div>
+                        <span class="font-mono text-[10px] text-primary-fixed-dim">POLICY v1.0</span>
+                    </div>
+                </div>
+            </section>
+
         </div>
     </main>
 
@@ -308,7 +719,13 @@
     <!-- Footer -->
     <footer class="w-full shrink-0 flex justify-between items-center px-6 pl-24 py-2 bg-black/50 backdrop-blur-md border-t border-outline-variant z-50">
         <div class="font-mono text-[9px] text-outline">© 2026 SPEEDLAB TACTICAL SYSTEMS</div>
-        <div class="flex gap-6">
+        <div class="flex items-center gap-4">
+            <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="about-section">ABOUT</a>
+            <span class="text-outline-variant text-[8px]">·</span>
+            <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="contact-section">CONTACT</a>
+            <span class="text-outline-variant text-[8px]">·</span>
+            <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="privacy-section">PRIVACY</a>
+            <span class="text-outline-variant text-[8px]">|</span>
             <span class="font-mono text-[9px] text-primary-fixed-dim uppercase tracking-widest">System: Optimal</span>
         </div>
     </footer>
@@ -319,14 +736,20 @@
     <div id="result-overlay" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-2xl hidden items-center justify-center p-4">
         <div class="glass-card p-8 rounded-[30px] max-w-3xl w-full border border-primary-fixed-dim/20 relative overflow-hidden">
             <!-- Header -->
-            <div class="text-center mb-6">
-                <div class="font-mono text-primary-fixed-dim text-[10px] tracking-[0.8em] mb-2 animate-pulse">CONGRATULATIONS // SESSION COMPLETE</div>
-                <div id="result-rating" class="font-orbitron text-5xl text-primary-fixed-dim mb-1">ELITE</div>
-                <div id="result-rank-msg" class="font-mono text-outline text-xs"></div>
+            <div class="text-center mb-6 flex flex-col items-center">
+                <div class="font-mono text-primary-fixed-dim text-[10px] tracking-[0.8em] mb-3 animate-pulse">CONGRATULATIONS // SESSION COMPLETE</div>
+                <div class="relative inline-flex items-center justify-center p-6 my-2 mx-auto min-w-[200px]">
+                    <!-- Dynamic HUD rotating rings -->
+                    <div class="absolute inset-0 border border-dashed border-primary-fixed-dim/30 rounded-full animate-[spin_20s_linear_infinite]"></div>
+                    <div class="absolute inset-2 border border-dotted border-primary-fixed-dim/20 rounded-full animate-[spin_10s_linear_infinite_reverse]"></div>
+                    <div class="absolute -inset-1 border border-primary-fixed-dim/10 rounded-full animate-ping opacity-25" style="animation-duration: 3s"></div>
+                    <div id="result-rating" class="font-orbitron text-4xl md:text-5xl text-primary-fixed-dim drop-shadow-[0_0_12px_rgba(0,219,231,0.6)] z-10 relative select-none">ELITE</div>
+                </div>
+                <div id="result-rank-msg" class="font-mono text-outline text-xs mt-3"></div>
             </div>
 
             <!-- Main Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 modal-animate-1 opacity-0">
                 <div class="glass-card p-4 rounded-2xl text-center">
                     <div class="font-mono text-outline text-[9px] mb-1">WPM</div>
                     <div id="res-wpm" class="font-orbitron text-3xl text-primary-fixed-dim">000</div>
@@ -346,13 +769,13 @@
             </div>
 
             <!-- WPM Graph -->
-            <div class="glass-card p-4 rounded-2xl mb-5">
+            <div class="glass-card p-4 rounded-2xl mb-5 modal-animate-2 opacity-0">
                 <div class="font-mono text-[9px] text-outline mb-2 tracking-widest">WPM OVER TIME</div>
                 <canvas id="wpm-chart" height="80" class="w-full"></canvas>
             </div>
 
             <!-- Error info + time -->
-            <div class="grid grid-cols-3 gap-4 mb-6">
+            <div class="grid grid-cols-3 gap-4 mb-6 modal-animate-3 opacity-0">
                 <div class="glass-card p-3 rounded-xl text-center">
                     <div class="font-mono text-outline text-[9px] mb-1">ERRORS</div>
                     <div id="res-errors" class="font-orbitron text-2xl text-red-400">0</div>
@@ -368,7 +791,7 @@
             </div>
 
             <!-- Buttons -->
-            <div class="flex gap-3 justify-center">
+            <div class="flex gap-3 justify-center modal-animate-4 opacity-0">
                 <button class="px-8 py-3 bg-primary-fixed-dim text-on-primary-fixed font-orbitron text-xs tracking-widest rounded-full hover:brightness-110 transition-all neon-glow" onclick="closeResult()">
                     NEW SESSION
                 </button>

@@ -6,6 +6,268 @@ const $$ = sel => document.querySelectorAll(sel);
 
 
 
+
+
+
+
+
+// ===== PREMIUM ANIMS ENGINE =====
+const sparksCanvas = $('sparks-canvas');
+let sparksCtx = null;
+let sparksParticles = [];
+let sparksAnimationFrameId = null;
+
+function resizeSparksCanvas() {
+    if (!sparksCanvas) return;
+    sparksCanvas.width = sparksCanvas.parentElement.offsetWidth;
+    sparksCanvas.height = sparksCanvas.parentElement.offsetHeight;
+}
+
+if (sparksCanvas) {
+    sparksCtx = sparksCanvas.getContext('2d');
+    window.addEventListener('resize', () => {
+        resizeSparksCanvas();
+        updateCaretPosition();
+    });
+    resizeSparksCanvas();
+}
+
+class CyberSpark {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 1.0 + Math.random() * 2.0;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed - 0.6;
+        this.size = 1.6 + Math.random() * 2.2;
+        this.alpha = 1.0;
+        this.decay = 0.035 + Math.random() * 0.025;
+        const colors = ['#00dbe7', '#ffffff', '#00f2ff', '#007b83'];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.04;
+        this.alpha -= this.decay;
+    }
+    draw() {
+        if (!sparksCtx) return;
+        sparksCtx.save();
+        sparksCtx.globalAlpha = Math.max(0, this.alpha);
+        sparksCtx.shadowBlur = 4;
+        sparksCtx.shadowColor = this.color;
+        sparksCtx.fillStyle = this.color;
+        sparksCtx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
+        sparksCtx.restore();
+    }
+}
+
+function updateSparks() {
+    if (!sparksCtx) return;
+    sparksCtx.clearRect(0, 0, sparksCanvas.width, sparksCanvas.height);
+    if (sparksParticles.length === 0) {
+        sparksAnimationFrameId = null;
+        return;
+    }
+    for (let i = sparksParticles.length - 1; i >= 0; i--) {
+        const p = sparksParticles[i];
+        p.update();
+        if (p.alpha <= 0) {
+            sparksParticles.splice(i, 1);
+        } else {
+            p.draw();
+        }
+    }
+    sparksAnimationFrameId = requestAnimationFrame(updateSparks);
+}
+
+function triggerSparksAt(x, y) {
+    if (!sparksCanvas) return;
+    if (sparksCanvas.width === 0) resizeSparksCanvas();
+    
+    for (let i = 0; i < 6; i++) {
+        sparksParticles.push(new CyberSpark(x, y));
+    }
+    if (!sparksAnimationFrameId) {
+        sparksAnimationFrameId = requestAnimationFrame(updateSparks);
+    }
+}
+
+function updateCaretPosition() {
+    const caret = $('custom-caret');
+    if (!caret) return;
+    const currentSpan = $('typing-text').querySelector('.char.current');
+    if (!currentSpan) return;
+    
+    const left = currentSpan.offsetLeft;
+    const top = currentSpan.offsetTop;
+    const width = currentSpan.offsetWidth;
+    const height = currentSpan.offsetHeight;
+    
+    caret.style.left = `${left}px`;
+    caret.style.top = `${top}px`;
+    caret.style.width = `${width}px`;
+    caret.style.height = `${height}px`;
+    
+    if (typingActive) {
+        triggerSparksAt(left, top + height / 2);
+    }
+}
+
+function animateCountUp(elementId, targetValue, duration = 1200, isPercentage = false, decimals = 0) {
+    const el = $(elementId);
+    if (!el) return;
+    
+    let startTimestamp = null;
+    const startValue = 0;
+    const target = parseFloat(targetValue);
+    if (isNaN(target)) return;
+    
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const easeProgress = progress * (2 - progress);
+        const currentValue = easeProgress * (target - startValue) + startValue;
+        
+        if (isPercentage) {
+            el.textContent = Math.floor(currentValue) + '%';
+        } else {
+            if (elementId === 'res-wpm' || elementId === 'res-raw') {
+                el.textContent = Math.floor(currentValue).toString().padStart(3, '0');
+            } else {
+                el.textContent = currentValue.toFixed(decimals);
+            }
+        }
+        
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        } else {
+            if (isPercentage) {
+                el.textContent = targetValue + '%';
+            } else {
+                if (elementId === 'res-wpm' || elementId === 'res-raw') {
+                    el.textContent = Math.floor(target).toString().padStart(3, '0');
+                } else {
+                    el.textContent = target.toFixed(decimals);
+                }
+            }
+        }
+    };
+    
+    window.requestAnimationFrame(step);
+}
+
+function playMechanicalClick(type) {
+    if (!soundOn) return;
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        
+        const now = audioCtx.currentTime;
+        
+        if (type === 'space') {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(140, now);
+            osc.frequency.exponentialRampToValueAtTime(70, now + 0.08);
+            
+            gain.gain.setValueAtTime(0.5, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+            
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(250, now);
+            
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc.start(now);
+            osc.stop(now + 0.09);
+        } else if (type === 'backspace') {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(400, now);
+            osc.frequency.exponentialRampToValueAtTime(120, now + 0.045);
+            
+            gain.gain.setValueAtTime(0.35, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.045);
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc.start(now);
+            osc.stop(now + 0.05);
+        } else {
+            const osc1 = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(1400, now);
+            osc1.frequency.exponentialRampToValueAtTime(800, now + 0.015);
+            
+            osc2.type = 'triangle';
+            osc2.frequency.setValueAtTime(300, now);
+            osc2.frequency.exponentialRampToValueAtTime(100, now + 0.03);
+            
+            gain.gain.setValueAtTime(0.3, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.035);
+            
+            osc1.connect(gain);
+            osc2.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc1.start(now);
+            osc2.start(now);
+            osc1.stop(now + 0.02);
+            osc2.stop(now + 0.035);
+        }
+    } catch(e) { console.error("Audio error:", e); }
+}
+
+function playSuccessChime() {
+    if (!soundOn) return;
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        
+        const now = audioCtx.currentTime;
+        
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(587.33, now);
+        osc1.frequency.exponentialRampToValueAtTime(1174.66, now + 0.12);
+        
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(880, now + 0.12);
+        osc2.frequency.exponentialRampToValueAtTime(1760, now + 0.3);
+        
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.setValueAtTime(0.25, now + 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.005, now + 0.35);
+        
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc1.start(now);
+        osc1.stop(now + 0.15);
+        
+        osc2.start(now + 0.12);
+        osc2.stop(now + 0.38);
+    } catch(e) { console.error("Chime error:", e); }
+}
+
 // ===== NAVIGATION =====
 $$('.nav-tab').forEach(tab => {
     tab.addEventListener('click', e => {
@@ -157,12 +419,22 @@ function renderText() {
     const el = $('typing-text');
     el.innerHTML = '';
     el.style.fontSize = fontSize + 'px';
+
+    // Create gliding caret
+    const caret = document.createElement('div');
+    caret.id = 'custom-caret';
+    caret.className = `caret-${caretStyle}`;
+    el.appendChild(caret);
+
     [...text].forEach((ch, i) => {
         const span = document.createElement('span');
-        span.className = 'char' + (i === 0 ? ` current caret-${caretStyle}` : '');
+        span.className = 'char' + (i === 0 ? ' current' : '');
         span.textContent = ch;
         el.appendChild(span);
     });
+
+    // Position caret after DOM rendering
+    setTimeout(updateCaretPosition, 20);
 }
 
 // ===== INIT TEST =====
@@ -209,6 +481,17 @@ $('typing-area').addEventListener('click', () => $('hidden-input').focus());
 $('hidden-input').addEventListener('keydown', e => {
     if (e.key === 'Tab') { e.preventDefault(); restartTest(); return; }
     if (e.key === 'Escape') { e.preventDefault(); initTest(); return; }
+
+    // Play cyber mechanical sound on valid typing keys
+    if (soundOn) {
+        if (e.key === ' ') {
+            playMechanicalClick('space');
+        } else if (e.key === 'Backspace') {
+            playMechanicalClick('backspace');
+        } else if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
+            playMechanicalClick('normal');
+        }
+    }
 });
 
 $('hidden-input').addEventListener('input', e => {
@@ -229,8 +512,11 @@ $('hidden-input').addEventListener('input', e => {
         if (i < typed.length) {
             ch.classList.add(typed[i] === ch.textContent ? 'correct' : 'incorrect');
         }
-        if (i === typed.length) ch.classList.add('current', `caret-${caretStyle}`);
+        if (i === typed.length) ch.classList.add('current');
     });
+
+    // Animate Caret and Emitters
+    updateCaretPosition();
 
     // Count mistakes
     let err = 0;
@@ -250,9 +536,6 @@ $('hidden-input').addEventListener('input', e => {
         const secs = ((performance.now() - startTime) / 1000).toFixed(1);
         $('timer-val').textContent = secs + 's';
     }
-
-    // Play sound
-    if (soundOn && typed.length > charIndex - 1) playClick();
 
     // Words mode: check if done
     if (testType === 'words') {
@@ -293,33 +576,6 @@ function startTimer() {
     }, 1000);
 }
 
-// ===== SOUND =====
-let audioCtx = null;
-function playClick() {
-    if (!soundOn) return;
-    try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!audioCtx) audioCtx = new AudioContext();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        
-        // Louder, simpler click
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(800 + (Math.random() * 200), audioCtx.currentTime);
-        
-        gain.gain.setValueAtTime(0.8, audioCtx.currentTime); // Volume increased from 0.1 to 0.8
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-        
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        
-        osc.start(audioCtx.currentTime);
-        osc.stop(audioCtx.currentTime + 0.06);
-    } catch(e) { console.error("Audio error:", e); }
-}
-
 // ===== END TEST =====
 function endTest() {
     clearInterval(timer);
@@ -348,16 +604,18 @@ function endTest() {
     else if (net >= 60) { rating = 'SKILLED'; msg = 'Great typing speed!'; }
     else if (net >= 40) { rating = 'AVERAGE'; msg = 'Keep improving!'; }
 
-    // Fill modal
+    // Fill modal rating
     $('result-rating').textContent = rating;
     $('result-rank-msg').textContent = msg;
-    $('res-wpm').textContent = net.toString().padStart(3,'0');
-    $('res-raw').textContent = raw.toString().padStart(3,'0');
-    $('res-acc').textContent = acc + '%';
-    $('res-consistency').textContent = consistency + '%';
-    $('res-errors').textContent = mistakes;
-    $('res-chars').textContent = typed.length;
-    $('res-time').textContent = Math.round(totalSec) + 's';
+
+    // Trigger premium animated counting odometer
+    animateCountUp('res-wpm', net, 1200);
+    animateCountUp('res-raw', raw, 1200);
+    animateCountUp('res-acc', acc, 1200, true);
+    animateCountUp('res-consistency', consistency, 1200, true);
+    animateCountUp('res-errors', mistakes, 1000);
+    animateCountUp('res-chars', typed.length, 1000);
+    animateCountUp('res-time', Math.round(totalSec), 1000);
 
     // Draw WPM chart
     drawChart(wpmHistory.length ? wpmHistory : [net]);
@@ -365,8 +623,11 @@ function endTest() {
     // Save to history
     saveHistory({ wpm: net, raw, acc, consistency, errors: mistakes, chars: typed.length, time: Math.round(totalSec), mode: testType, amount: testAmount, rating });
 
-    // Show modal
+    // Show modal (CSS soft opacity transition handles show)
     $('result-overlay').classList.add('show');
+
+    // Success cyber mechanical chime
+    playSuccessChime();
 
     // Confetti
     confetti({ particleCount: 180, spread: 80, origin: { y: 0.6 }, colors: ['#00dbe7','#ffffff','#00f2ff'] });
@@ -492,25 +753,36 @@ $('btn-start-speed').addEventListener('click', async () => {
     $('internet-results').classList.remove('opacity-100');
     $('speed-val').textContent = '0.0';
     setProgress(0);
+
+    // Show rotating radar sweep beam
+    const sweep = $('radar-sweep');
+    if (sweep) sweep.classList.remove('hidden');
+
     try {
         $('phase-name').textContent = 'PING'; $('phase-status').textContent = 'MEASURING LATENCY...';
         const ping = await measurePing();
-        $('res-ping').textContent = ping; setProgress(33);
+        animateCountUp('res-ping', ping, 800);
+        setProgress(33);
 
         $('phase-name').textContent = 'DOWNLOAD'; $('phase-status').textContent = 'STREAMING 5MB PACKET...';
         const down = await measureDownload();
-        $('res-down').textContent = down; setProgress(66);
+        animateCountUp('res-down', down, 1000, false, 1);
+        setProgress(66);
 
         $('phase-name').textContent = 'UPLOAD'; $('phase-status').textContent = 'UPLOADING BLOB...';
         const up = await measureUpload();
-        $('res-up').textContent = up; setProgress(100);
+        animateCountUp('res-up', up, 1000, false, 1);
+        setProgress(100);
 
         $('phase-name').textContent = 'COMPLETE'; $('phase-status').textContent = 'ANALYSIS FINALIZED';
         $('internet-results').classList.remove('opacity-0'); $('internet-results').classList.add('opacity-100');
         btn.textContent = 'RE-RUN ANALYSIS';
     } catch(e) {
         $('phase-name').textContent = 'ERROR'; $('phase-status').textContent = 'CONNECTION INTERRUPTED';
-    } finally { btn.disabled = false; }
+    } finally { 
+        btn.disabled = false; 
+        if (sweep) sweep.classList.add('hidden');
+    }
 });
 
 async function measurePing() {
@@ -552,3 +824,22 @@ async function measureUpload() {
 
 // ===== INIT =====
 initTest();
+
+// ===== FOOTER NAV LINKS =====
+$$('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = link.dataset.target;
+        // Update sidebar active state
+        $$('.nav-tab').forEach(t => t.classList.remove('active'));
+        const matchingTab = document.querySelector(`.nav-tab[data-target="${target}"]`);
+        if (matchingTab) matchingTab.classList.add('active');
+        // Switch section
+        $$('.tool-section').forEach(s => s.classList.remove('active'));
+        setTimeout(() => $(target)?.classList.add('active'), 30);
+        // Hide typing mode tabs for non-typing sections
+        $('typing-mode-tabs').style.display = target === 'typing-section' ? 'flex' : 'none';
+    });
+});
+
+
