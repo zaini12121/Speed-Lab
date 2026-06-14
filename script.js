@@ -278,7 +278,7 @@ $$('.nav-tab').forEach(tab => {
         $$('.tool-section').forEach(s => s.classList.remove('active'));
         setTimeout(() => $(target)?.classList.add('active'), 30);
         // Show/hide top bar mode tabs
-        $('typing-mode-tabs').style.display = target === 'typing-section' ? 'flex' : 'none';
+        $('typing-mode-tabs')?.classList.toggle('hidden', target !== 'typing-section');
     });
 });
 
@@ -838,7 +838,7 @@ $$('.nav-link').forEach(link => {
         $$('.tool-section').forEach(s => s.classList.remove('active'));
         setTimeout(() => $(target)?.classList.add('active'), 30);
         // Hide typing mode tabs for non-typing sections
-        $('typing-mode-tabs').style.display = target === 'typing-section' ? 'flex' : 'none';
+        $('typing-mode-tabs')?.classList.toggle('hidden', target !== 'typing-section');
     });
 });
 

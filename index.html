@@ -59,8 +59,6 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7102162990673013" crossorigin="anonymous"></script>
 </head>
 <body class="font-space antialiased h-screen flex flex-col overflow-hidden">
 
@@ -72,7 +70,7 @@
         </div>
         
         <nav class="flex flex-col gap-4 w-full px-2">
-            <a class="nav-tab active flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="typing-section" title="Typing Test">
+            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="typing-section" title="Typing Test">
                 <span class="material-symbols-outlined text-[24px]">keyboard</span>
                 <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Typing Test</span>
             </a>
@@ -87,6 +85,10 @@
             <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="settings-section" title="Settings">
                 <span class="material-symbols-outlined text-[24px]">settings</span>
                 <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Settings</span>
+            </a>
+            <a class="nav-tab active flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="guides-section" title="Learning Center">
+                <span class="material-symbols-outlined text-[24px]">menu_book</span>
+                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Learning Center</span>
             </a>
 
             <div class="w-10 h-px bg-outline-variant/50 mx-auto my-1"></div>
@@ -122,7 +124,7 @@
             <span class="font-orbitron text-base font-bold tracking-widest text-primary-fixed-dim">SPEEDLAB</span>
         </div>
         <!-- Mode Tabs in top bar -->
-        <div id="typing-mode-tabs" class="flex items-center gap-1">
+        <div id="typing-mode-tabs" class="hidden flex items-center gap-1">
             <div class="flex items-center gap-1 glass-card rounded-full px-2 py-1">
                 <!-- Test type -->
                 <button class="type-btn active-type px-3 py-1 font-mono text-xs rounded-full transition-all" data-type="time">TIME</button>
@@ -163,7 +165,7 @@
         <div class="max-w-[1100px] w-full h-full">
 
             <!-- ======================== TYPING SECTION ======================== -->
-            <section id="typing-section" class="tool-section active h-full">
+            <section id="typing-section" class="tool-section h-full">
 
                 <!-- Stats Row -->
                 <div class="grid grid-cols-4 gap-3 mb-4">
@@ -186,7 +188,7 @@
                 </div>
 
                 <!-- Typing Area -->
-                <div class="glass-card p-6 md:p-8 rounded-[20px] relative flex-1 flex flex-col overflow-hidden" id="typing-area">
+                <div class="glass-card p-6 md:p-8 rounded-[20px] relative flex-1 flex flex-col overflow-hidden google-anno-skip" id="typing-area">
                     <canvas id="sparks-canvas" class="absolute inset-0 pointer-events-none z-10"></canvas>
                     <div class="absolute top-3 left-5 font-mono text-outline opacity-30 text-[8px] tracking-widest">TERMINAL_INPUT_BUFFER</div>
                     <input type="text" id="hidden-input" autocomplete="off" spellcheck="false" class="absolute opacity-0 w-0 h-0 pointer-events-none">
@@ -226,7 +228,7 @@
             </section>
 
             <!-- ======================== NETWORK SECTION ======================== -->
-            <section id="network-section" class="tool-section h-full">
+            <section id="network-section" class="tool-section h-full google-anno-skip">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
                         <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
@@ -286,7 +288,7 @@
             </section>
 
             <!-- ======================== HISTORY SECTION ======================== -->
-            <section id="history-section" class="tool-section h-full">
+            <section id="history-section" class="tool-section h-full google-anno-skip">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
                         <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
@@ -300,7 +302,7 @@
             </section>
 
             <!-- ======================== SETTINGS SECTION ======================== -->
-            <section id="settings-section" class="tool-section h-full">
+            <section id="settings-section" class="tool-section h-full google-anno-skip">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
                         <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
@@ -598,7 +600,7 @@
                                     <span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
                                     Advertising
                                 </div>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed">We use Google AdSense to display advertisements. Google may use cookies and web beacons to serve personalized ads based on your browsing activity. You can manage ad preferences at <span class="text-primary-fixed-dim">adssettings.google.com</span>.</p>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed">This site is currently published without ad slots so the learning pages and tools remain content-first. If advertising is added later, it should be placed only on pages with substantial editorial content.</p>
                             </div>
                         </div>
                     </div>
@@ -612,7 +614,7 @@
                             <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">COOKIES</h3>
                         </div>
                         <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
-                            SPEEDLAB itself does not set any cookies. However, third-party services such as Google AdSense may place cookies on your browser. These cookies are governed by their respective privacy policies. You can manage or disable cookies through your browser settings.
+                            SPEEDLAB itself does not set advertising cookies in the current build. Third-party services used by the site are limited to fonts, hosting, and the network test endpoints needed for the tools to function. You can manage or disable cookies through your browser settings.
                         </p>
                     </div>
 
@@ -625,10 +627,6 @@
                             <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">THIRD-PARTY SERVICES</h3>
                         </div>
                         <div class="space-y-2">
-                            <div class="flex items-center gap-3 font-mono text-[11px] text-on-surface-variant">
-                                <span class="text-primary-fixed-dim">›</span>
-                                <span><strong class="text-on-surface">Google AdSense</strong> — Advertising and monetization</span>
-                            </div>
                             <div class="flex items-center gap-3 font-mono text-[11px] text-on-surface-variant">
                                 <span class="text-primary-fixed-dim">›</span>
                                 <span><strong class="text-on-surface">Google Fonts</strong> — Typography (Orbitron, IBM Plex Mono, Space Mono)</span>
@@ -659,7 +657,7 @@
                             </div>
                             <div class="flex items-start gap-2">
                                 <span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
-                                <p class="font-mono text-[11px] text-on-surface-variant">You can disable ad personalization through Google Ad Settings.</p>
+                                <p class="font-mono text-[11px] text-on-surface-variant">The site does not show ads on the typing, network, history, or settings screens in this build.</p>
                             </div>
                             <div class="flex items-start gap-2">
                                 <span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
@@ -704,9 +702,335 @@
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">mail</span>
-                            <span class="font-mono text-[11px] text-outline">Questions? Contact us at <span class="text-primary-fixed-dim">support@speedlab.app</span></span>
+                            <span class="font-mono text-[11px] text-outline">Questions? Contact us at <span class="text-primary-fixed-dim">zainulabdin-portfolio.vercel.app</span></span>
                         </div>
                         <span class="font-mono text-[10px] text-primary-fixed-dim">POLICY v1.0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================== LEARNING CENTER SECTION ======================== -->
+            <section id="guides-section" class="tool-section active h-full overflow-y-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
+                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
+                        LEARNING CENTER
+                    </h2>
+                    <span class="font-mono text-outline text-[10px]">LOC: CORE-DATABASE</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-[20px] mb-4 space-y-5">
+                    <div class="flex items-start justify-between gap-4 flex-wrap">
+                        <div class="max-w-2xl">
+                            <div class="font-mono text-[10px] tracking-[0.35em] text-primary-fixed-dim mb-3 uppercase">Publisher content first</div>
+                            <h3 class="font-orbitron text-xl md:text-2xl text-white leading-tight mb-3">Practical typing guidance, network basics, and keyboard advice in one place.</h3>
+                            <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
+                                SPEEDLAB is designed as a learning hub, not just a utility screen. The articles below explain how to improve typing accuracy, understand latency, choose better hardware, and interpret speed results so the page has clear editorial value for visitors.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 min-w-[220px]">
+                            <div class="glass-card p-3 rounded-xl">
+                                <div class="font-orbitron text-lg text-primary-fixed-dim">4</div>
+                                <div class="font-mono text-[10px] text-outline uppercase tracking-widest">Core articles</div>
+                            </div>
+                            <div class="glass-card p-3 rounded-xl">
+                                <div class="font-orbitron text-lg text-primary-fixed-dim">98%</div>
+                                <div class="font-mono text-[10px] text-outline uppercase tracking-widest">Accuracy focus</div>
+                            </div>
+                            <div class="glass-card p-3 rounded-xl">
+                                <div class="font-orbitron text-lg text-primary-fixed-dim">3</div>
+                                <div class="font-mono text-[10px] text-outline uppercase tracking-widest">Practice paths</div>
+                            </div>
+                            <div class="glass-card p-3 rounded-xl">
+                                <div class="font-orbitron text-lg text-primary-fixed-dim">0</div>
+                                <div class="font-mono text-[10px] text-outline uppercase tracking-widest">Thin pages</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div class="glass-card p-4 rounded-xl">
+                            <div class="font-mono text-[10px] text-primary-fixed-dim uppercase tracking-widest mb-2">What to read first</div>
+                            <p class="font-mono text-[11px] text-outline leading-relaxed">Start with the typing and accuracy articles if you want higher WPM. Then move to the network guide if you are comparing ping, jitter, and bandwidth.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl">
+                            <div class="font-mono text-[10px] text-primary-fixed-dim uppercase tracking-widest mb-2">How to use the tools</div>
+                            <p class="font-mono text-[11px] text-outline leading-relaxed">Run a short typing session, review the result modal, then open session history to compare accuracy and consistency over time.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl">
+                            <div class="font-mono text-[10px] text-primary-fixed-dim uppercase tracking-widest mb-2">Why this helps compliance</div>
+                            <p class="font-mono text-[11px] text-outline leading-relaxed">Pages that combine original articles, explanations, and clear navigation are less likely to look like low-value or under-construction screens.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reading View (Initially Hidden) -->
+                <div id="guide-reading-pane" class="hidden glass-card p-6 md:p-8 rounded-[20px] mb-4">
+                    <button onclick="closeArticle()" class="flex items-center gap-2 text-xs font-mono text-outline hover:text-primary-fixed-dim mb-6 transition-colors">
+                        <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                        BACK TO LEARNING CENTER
+                    </button>
+                    <div id="article-view-content" class="article-rich-text">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Catalog View (Grid list of articles) -->
+                <div id="guide-catalog-pane" class="space-y-4 mb-4">
+                    <!-- Filters and Search -->
+                    <div class="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between glass-card p-4 rounded-xl">
+                        <!-- Filter Tabs -->
+                        <div class="flex flex-wrap gap-1">
+                            <button onclick="filterGuides('all')" class="guide-filter-btn active-amount px-4 py-1.5 font-mono text-[10px] rounded-full glass-card transition-all" data-category="all">ALL</button>
+                            <button onclick="filterGuides('typing')" class="guide-filter-btn px-4 py-1.5 font-mono text-[10px] rounded-full glass-card transition-all" data-category="typing">TYPING</button>
+                            <button onclick="filterGuides('network')" class="guide-filter-btn px-4 py-1.5 font-mono text-[10px] rounded-full glass-card transition-all" data-category="network">NETWORK</button>
+                            <button onclick="filterGuides('keyboard')" class="guide-filter-btn px-4 py-1.5 font-mono text-[10px] rounded-full glass-card transition-all" data-category="keyboard">KEYBOARDS</button>
+                        </div>
+                        <!-- Search Bar -->
+                        <div class="relative flex items-center">
+                            <span class="material-symbols-outlined absolute left-3 text-[16px] text-outline">search</span>
+                            <input type="text" id="guide-search" placeholder="Search guides..." oninput="searchGuides()" class="bg-black/30 border border-outline-variant rounded-full pl-9 pr-4 py-1.5 font-mono text-xs text-on-surface focus:outline-none focus:border-primary-fixed-dim w-full md:w-64">
+                        </div>
+                    </div>
+
+                    <!-- Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="guides-grid">
+                        
+                        <!-- Card 1 -->
+                        <div class="guide-card glass-card p-5 rounded-2xl flex flex-col justify-between cursor-pointer border border-outline-variant/30" data-category="typing" data-id="1" onclick="openArticle(1)">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="px-2 py-0.5 rounded text-[8px] font-mono bg-primary-fixed-dim/15 text-primary-fixed-dim uppercase tracking-wider">TYPING TECHNIQUES</span>
+                                    <span class="font-mono text-[9px] text-outline">5 MIN READ</span>
+                                </div>
+                                <h3 class="font-orbitron text-sm text-white mb-2 group-hover:text-primary-fixed-dim transition-colors">The Science of Touch Typing: How to Break 100 WPM</h3>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed mb-4">Discover the mechanical and neurological principles behind fast typing. Learn how to train your muscle memory, optimize finger placement, and build consistent daily practice routines.</p>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-[10px] font-mono text-primary-fixed-dim mt-auto">
+                                READ ARTICLE <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="guide-card glass-card p-5 rounded-2xl flex flex-col justify-between cursor-pointer border border-outline-variant/30" data-category="network" data-id="2" onclick="openArticle(2)">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="px-2 py-0.5 rounded text-[8px] font-mono bg-primary-fixed-dim/15 text-primary-fixed-dim uppercase tracking-wider">NETWORK SPEED</span>
+                                    <span class="font-mono text-[9px] text-outline">6 MIN READ</span>
+                                </div>
+                                <h3 class="font-orbitron text-sm text-white mb-2 group-hover:text-primary-fixed-dim transition-colors">Understanding Network Latency: Ping, Jitter, and Speed</h3>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed mb-4">A deep dive into network performance. Learn the difference between bandwidth and latency, what causes jitter, and how to optimize your connection for real-time applications.</p>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-[10px] font-mono text-primary-fixed-dim mt-auto">
+                                READ ARTICLE <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="guide-card glass-card p-5 rounded-2xl flex flex-col justify-between cursor-pointer border border-outline-variant/30" data-category="typing" data-id="3" onclick="openArticle(3)">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="px-2 py-0.5 rounded text-[8px] font-mono bg-primary-fixed-dim/15 text-primary-fixed-dim uppercase tracking-wider">TYPING ACCURACY</span>
+                                    <span class="font-mono text-[9px] text-outline">4 MIN READ</span>
+                                </div>
+                                <h3 class="font-orbitron text-sm text-white mb-2 group-hover:text-primary-fixed-dim transition-colors">Accuracy vs. Speed: The Critical Balance in Typing</h3>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed mb-4">Why precision is the ultimate shortcut to speed. Analyze the backspace penalty, understand error-correction mechanics, and discover how to practice typing with zero mistakes.</p>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-[10px] font-mono text-primary-fixed-dim mt-auto">
+                                READ ARTICLE <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="guide-card glass-card p-5 rounded-2xl flex flex-col justify-between cursor-pointer border border-outline-variant/30" data-category="keyboard" data-id="4" onclick="openArticle(4)">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="px-2 py-0.5 rounded text-[8px] font-mono bg-primary-fixed-dim/15 text-primary-fixed-dim uppercase tracking-wider">HARDWARE & LAYOUTS</span>
+                                    <span class="font-mono text-[9px] text-outline">5 MIN READ</span>
+                                </div>
+                                <h3 class="font-orbitron text-sm text-white mb-2 group-hover:text-primary-fixed-dim transition-colors">Keyboard Ergonomics and Layouts: QWERTY vs. Dvorak</h3>
+                                <p class="font-mono text-[11px] text-outline leading-relaxed mb-4">Explore the history and mechanics of different keyboard layouts. Compare the ubiquitous QWERTY layout with alternative ergonomic options like Dvorak and Colemak.</p>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-[10px] font-mono text-primary-fixed-dim mt-auto">
+                                READ ARTICLE <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Hidden Articles Content for SEO Indexing -->
+                <div class="hidden">
+                    <article id="article-content-1">
+                        <h2>The Science of Touch Typing: How to Break 100 WPM</h2>
+                        <p class="text-xs text-outline mb-4">Published by Speedlab Editorial · 5 Min Read</p>
+                        <p>Typing is not just a manual skill; it is a complex neurological process. When you touch type, your brain translates thoughts directly into finger movements without looking at the keyboard. This page-level focus on muscle memory is what separates professional typists from everyday users.</p>
+                        
+                        <h2>The Power of Muscle Memory</h2>
+                        <p>Touch typing relies on muscle memory (motor learning). By maintaining a consistent home row position (<strong>ASDF</strong> for the left hand, <strong>JKL;</strong> for the right hand), your brain maps each key to a specific finger trajectory. Looking at the keys disrupts this mapping and creates a cognitive bottleneck, forcing your brain to switch focus between the layout and the text on the screen.</p>
+                        
+                        <h2>Optimal Posture and Setup</h2>
+                        <p>Ergonomics play a massive role in typing speed. Poor physical setup leads to rapid fatigue and error rates. Keep your wrists straight and slightly elevated—never rest them flat on the desk or keyboard tray, which can lead to repetitive strain injuries (RSI). Your elbows should be at a 90-degree angle, and your feet flat on the floor.</p>
+                        <blockquote>"A healthy posture reduces physical strain, allowing muscle memory to handle keypresses effortlessly and without friction."</blockquote>
+                        
+                        <h2>Effective Practice Strategies</h2>
+                        <ul>
+                            <li><strong>Focus on accuracy first:</strong> Speed is a natural byproduct of accuracy. If you type fast but constantly make mistakes, you waste valuable seconds correcting them.</li>
+                            <li><strong>Practice in short, focused blocks:</strong> Devote 15-20 minutes daily rather than long, fatiguing sessions. Consistency is key to permanent motor adaptation.</li>
+                            <li><strong>Use varied texts:</strong> Don't just practice letters. Mix in common word arrays, numbers, punctuation, and code strings to build robust muscle memory.</li>
+                            <li><strong>Target your weak keys:</strong> Review your session history. Identify which characters have the highest mistake rates and practice custom lists containing those letters.</li>
+                        </ul>
+                        
+                        <h2>Conclusion</h2>
+                        <p>Breaking 100 WPM requires patience and deliberate practice. By eliminating the habit of looking at the keyboard and focusing on precision, your fingers will gradually glide across the layout with effortless speed.</p>
+                    </article>
+
+                    <article id="article-content-2">
+                        <h2>Understanding Network Latency: Ping, Jitter, and Speed</h2>
+                        <p class="text-xs text-outline mb-4">Published by Speedlab Systems Research · 6 Min Read</p>
+                        <p>We often judge internet connections solely by their download speed (megabits per second). However, for real-time applications like online gaming, video conferencing, and live streaming, speed is only half the equation. Network diagnostics like ping and jitter are critical metrics that define your digital responsiveness.</p>
+                        
+                        <h2>Bandwidth vs. Latency</h2>
+                        <p>To understand network performance, we must distinguish between two core concepts:</p>
+                        <ul>
+                            <li><strong>Bandwidth (Speed):</strong> The capacity of your network connection to transfer data over time. Think of it as a highway's width: a wider highway accommodates more cars simultaneously, but doesn't necessarily make them travel faster.</li>
+                            <li><strong>Latency (Ping):</strong> The time it takes for a single data packet to travel from your device to a remote server and return. It is measured in milliseconds (ms). Think of it as the speed limit or travel time on the highway.</li>
+                        </ul>
+                        
+                        <h2>What is Jitter?</h2>
+                        <p>Jitter is the variance in latency over time. If your ping constantly fluctuates between 20ms and 150ms, you have high jitter. This instability causes stuttering, disconnected calls, and lag. A stable connection has low jitter (ideally under 3ms), ensuring smooth real-time packet arrival.</p>
+                        
+                        <h2>Common Causes of High Latency</h2>
+                        <ul>
+                            <li><strong>Physical Distance:</strong> The further you are from the host server, the longer it takes for electrical or light signals to travel through copper and fiber optic cables.</li>
+                            <li><strong>Network Congestion:</strong> Too many devices on the same local network downloading large files, or heavy traffic on your Internet Service Provider's (ISP) local node.</li>
+                            <li><strong>Wireless Interference:</strong> Wi-Fi signals degrade due to physical obstructions (walls, doors), distance from the router, and interference from other electronics.</li>
+                        </ul>
+                        
+                        <h2>How to Optimize Your Connection</h2>
+                        <p>If you experience lag or slow load times, try the following network adjustments:</p>
+                        <ul>
+                            <li><strong>Use a Wired Connection:</strong> Connect your device via Ethernet rather than Wi-Fi to eliminate wireless interference and packet loss.</li>
+                            <li><strong>Quality of Service (QoS):</strong> Configure your router's QoS settings to prioritize gaming, calling, or media traffic over standard downloads.</li>
+                            <li><strong>Server Selection:</strong> In interactive applications, select servers geographically closest to you to minimize physical packet travel distance.</li>
+                        </ul>
+                        
+                        <h2>Conclusion</h2>
+                        <p>A fast internet connection is useless if it is unstable. Monitoring your latency and jitter is the key to ensuring smooth, uninterrupted digital interactions.</p>
+                    </article>
+
+                    <article id="article-content-3">
+                        <h2>Accuracy vs. Speed: The Critical Balance in Typing</h2>
+                        <p class="text-xs text-outline mb-4">Published by Speedlab Editorial · 4 Min Read</p>
+                        <p>In typing tests and daily work, there is a common debate: should you focus on moving your fingers as fast as possible, or on typing without errors? Data shows that accuracy is the true driver of typing speed. Precision is the ultimate shortcut to speed.</p>
+                        
+                        <h2>The Backspace Penalty</h2>
+                        <p>Many typists do not realize how costly a single mistake is. When you type an incorrect character, you must:</p>
+                        <ul>
+                            <li>Recognize the error (cognitive delay).</li>
+                            <li>Move your finger to the Backspace key.</li>
+                            <li>Press Backspace (deleting the character).</li>
+                            <li>Move your finger back to the correct key.</li>
+                            <li>Re-type the character.</li>
+                        </ul>
+                        <p>This process costs at least 3-5 keystrokes of time. In time-limited tests, a 95% accuracy run can easily have a lower net WPM than a calm, focused 99% accuracy run. The backspace penalty effectively halts your momentum.</p>
+                        
+                        <h2>Cognitive Load and Rhythm</h2>
+                        <p>Fast typing relies on rhythm. When you type rhythmically, your fingers move in a continuous flow. Making errors breaks this rhythm, forcing your brain to pause, reset, and re-establish the flow. This constant disruption increases mental fatigue and raises the likelihood of consecutive mistakes.</p>
+                        <blockquote>"Typing at a steady, rhythmic pace with zero errors is mathematically faster and less fatiguing than typing in bursts interrupted by errors."</blockquote>
+                        
+                        <h2>The "Slow Down to Speed Up" Technique</h2>
+                        <p>If your accuracy drops below 96%, you are typing faster than your current cognitive limit. To break through:</p>
+                        <ul>
+                            <li><strong>Intentionally slow down:</strong> Reduce your speed to a pace where you can maintain 98%+ accuracy.</li>
+                            <li><strong>Type rhythmically:</strong> Focus on hitting each key with equal force and rhythm.</li>
+                            <li><strong>Gradually accelerate:</strong> Increase speed only when you can consistently maintain high accuracy.</li>
+                        </ul>
+                        
+                        <h2>Conclusion</h2>
+                        <p>Do not chase raw speed. Build a foundation of perfect accuracy, and your brain will automatically optimize the movements to make you faster over time.</p>
+                    </article>
+
+                    <article id="article-content-4">
+                        <h2>Keyboard Ergonomics and Layouts: QWERTY vs. Dvorak</h2>
+                        <p class="text-xs text-outline mb-4">Published by Speedlab Hardware Lab · 5 Min Read</p>
+                        <p>The keyboard layout you use every day was designed in the 1870s for mechanical typewriters. QWERTY was created to prevent physical typebars from jamming, not for speed or comfort. Today, alternative layouts offer ergonomic benefits that reduce strain and improve efficiency.</p>
+                        
+                        <h2>The QWERTY Layout</h2>
+                        <p>QWERTY places common letter combinations far apart, forcing your fingers to make long jumps. This layout makes the left hand do about 57% of the work and leaves the home row underutilized. Only 32% of all keystrokes occur on the home row in QWERTY, forcing massive hand travel.</p>
+                        
+                        <h2>The Dvorak Layout</h2>
+                        <p>Patented in 1936 by Dr. August Dvorak, the Dvorak layout was designed for maximum comfort and speed. It places all vowels on the left side of the home row and the most common consonants on the right side. This maximizes home row usage (70% compared to QWERTY's 32%) and reduces finger travel by up to 60%, mitigating wrist fatigue.</p>
+                        
+                        <h2>The Colemak Layout</h2>
+                        <p>Colemak is a modern alternative designed in 2006. It keeps 17 keys from QWERTY in the same position (making it much easier to learn than Dvorak) but optimizes the rest for home row comfort and hand alternation. It has become popular among developers and writers who want ergonomic benefits without a massive learning curve.</p>
+                        
+                        <h2>Ergonomics Beyond Layouts</h2>
+                        <p>Layout is only part of keyboard comfort. Keep these hardware adjustments in mind:</p>
+                        <ul>
+                            <li><strong>Split Keyboards:</strong> Angle the keys to match the natural angle of your hands, preventing wrist pronation.</li>
+                            <li><strong>Mechanical Switches:</strong> Switches with tactile bumps (like tactile brown switches) help you feel when a key registers, preventing you from bottoming out keys and reducing joint fatigue.</li>
+                            <li><strong>Wrist Rests:</strong> Rest the palms (not the wrists) during pauses, keeping them hovering while typing.</li>
+                        </ul>
+                        
+                        <h2>Conclusion</h2>
+                        <p>Switching layouts requires a significant time investment to rebuild muscle memory, but for those suffering from strain or looking for maximum efficiency, it can be a life-changing adjustment.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- ======================== TERMS OF SERVICE SECTION ======================== -->
+            <section id="terms-section" class="tool-section h-full overflow-y-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
+                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
+                        TERMS OF SERVICE
+                    </h2>
+                    <span class="font-mono text-outline text-[10px]">LAST UPDATED: MAY 2026</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-[20px] space-y-6 mb-4 font-mono text-sm text-on-surface-variant leading-relaxed">
+                    <div>
+                        <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest mb-3">1. ACCEPTANCE OF TERMS</h3>
+                        <p>By accessing and using SPEEDLAB (speed-lab.vercel.app), you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree, you are prohibited from using this site.</p>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <div>
+                        <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest mb-3">2. USE LICENSE</h3>
+                        <p>SPEEDLAB is an open-access utility web application. You are granted permission to use the typing test, network diagnostics tools, and educational guides for personal, non-commercial purposes. You must not exploit our services or endpoints (e.g., speed test servers) via automated scripts or scraping tools.</p>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <div>
+                        <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest mb-3">3. DISCLAIMER OF WARRANTIES</h3>
+                        <p>The materials and tools on SPEEDLAB are provided on an "as is" basis. SPEEDLAB makes no warranties, expressed or implied, and hereby disclaims all other warranties including, without limitation, implied warranties of merchantability, fitness for a particular purpose, or non-infringement of intellectual property.</p>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <div>
+                        <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest mb-3">4. LIMITATIONS OF LIABILITY</h3>
+                        <p>In no event shall SPEEDLAB or its developers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the tools on SPEEDLAB, even if notified orally or in writing of the possibility of such damage.</p>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <div>
+                        <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest mb-3">5. GOVERNING LAW</h3>
+                        <p>These terms and conditions are governed by and construed in accordance with international digital licensing standards, and you irrevocably submit to the exclusive jurisdiction of the courts in your local territory for any dispute resolution.</p>
+                    </div>
+
+                    <div class="border-t border-outline-variant/50"></div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">verified_user</span>
+                            <span class="font-mono text-[11px] text-outline">Compliance Version 1.0</span>
+                        </div>
+                        <span class="font-mono text-[10px] text-primary-fixed-dim">SPEEDLAB OPERATIONS</span>
                     </div>
                 </div>
             </section>
@@ -718,13 +1042,17 @@
 
     <!-- Footer -->
     <footer class="w-full shrink-0 flex justify-between items-center px-6 pl-24 py-2 bg-black/50 backdrop-blur-md border-t border-outline-variant z-50">
-        <div class="font-mono text-[9px] text-outline">© 2026 SPEEDLAB TACTICAL SYSTEMS</div>
+        <div class="font-mono text-[9px] text-outline">© 2025 SPEEDLAB TACTICAL SYSTEMS</div>
         <div class="flex items-center gap-4">
             <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="about-section">ABOUT</a>
             <span class="text-outline-variant text-[8px]">·</span>
             <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="contact-section">CONTACT</a>
             <span class="text-outline-variant text-[8px]">·</span>
             <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="privacy-section">PRIVACY</a>
+            <span class="text-outline-variant text-[8px]">·</span>
+            <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="guides-section">GUIDES</a>
+            <span class="text-outline-variant text-[8px]">·</span>
+            <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="terms-section">TERMS</a>
             <span class="text-outline-variant text-[8px]">|</span>
             <span class="font-mono text-[9px] text-primary-fixed-dim uppercase tracking-widest">System: Optimal</span>
         </div>
@@ -733,7 +1061,7 @@
 
 
     <!-- ======================== RESULT MODAL ======================== -->
-    <div id="result-overlay" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-2xl hidden items-center justify-center p-4">
+    <div id="result-overlay" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-2xl hidden items-center justify-center p-4 google-anno-skip">
         <div class="glass-card p-8 rounded-[30px] max-w-3xl w-full border border-primary-fixed-dim/20 relative overflow-hidden">
             <!-- Header -->
             <div class="text-center mb-6 flex flex-col items-center">

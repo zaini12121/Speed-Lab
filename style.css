@@ -237,3 +237,57 @@ body::before {
         transform: translateY(0);
     }
 }
+
+/* ===== LEARNING CENTER & TERMS STYLES ===== */
+.guide-card {
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.guide-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 219, 231, 0.35) !important;
+    box-shadow: 0 4px 20px rgba(0, 219, 231, 0.08);
+}
+.article-rich-text h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--accent);
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(58, 73, 75, 0.5);
+}
+.article-rich-text p {
+    margin-bottom: 1rem;
+    color: #b9cacb;
+}
+.article-rich-text ul, .article-rich-text ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.25rem;
+    list-style-type: none;
+}
+.article-rich-text li {
+    position: relative;
+    margin-bottom: 0.5rem;
+    color: #b9cacb;
+}
+.article-rich-text li::before {
+    content: "›";
+    position: absolute;
+    left: -1rem;
+    color: var(--accent);
+    font-weight: bold;
+}
+.article-rich-text strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+.article-rich-text blockquote {
+    border-left: 3px solid var(--accent);
+    background: rgba(0, 219, 231, 0.05);
+    padding: 0.75rem 1rem;
+    margin: 1.25rem 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+}
+

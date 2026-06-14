@@ -42,8 +42,8 @@ A premium, high-performance web application for typing speed diagnostics and net
 2. **Open the project**:
    Simply open `index.html` in any modern web browser.
 
-3. **Configure AdSense**:
-   Update your Publisher ID in `index.html` to enable monetization.
+3. **Publish content first**:
+   Keep the Learning Center and policy pages substantial before adding any monetization layer.
 
 ## 📜 License
 This project is for educational and personal use. All rights reserved.
