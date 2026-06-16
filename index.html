@@ -764,8 +764,16 @@
                     </div>
                 </div>
 
+                <div class="mt-4">
+                    <div class="font-mono text-[10px] tracking-[0.35em] text-primary-fixed-dim mb-2 uppercase">Publisher Content Intro</div>
+                    <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
+                        Explore practical, step-by-step guidance for improving typing speed and understanding network performance. This Learning Center is content-first: articles below explain techniques you can apply immediately—without needing to run any tool first.
+                    </p>
+                </div>
+
                 <!-- Reading View (Initially Hidden) -->
                 <div id="guide-reading-pane" class="hidden glass-card p-6 md:p-8 rounded-[20px] mb-4">
+
                     <button onclick="closeArticle()" class="flex items-center gap-2 text-xs font-mono text-outline hover:text-primary-fixed-dim mb-6 transition-colors">
                         <span class="material-symbols-outlined text-[16px]">arrow_back</span>
                         BACK TO LEARNING CENTER
@@ -859,9 +867,10 @@
                     </div>
                 </div>
 
-                <!-- Hidden Articles Content for SEO Indexing -->
-                <div class="hidden">
-                    <article id="article-content-1">
+                <!-- Articles Content (kept indexable for AdSense) -->
+                <div class="article-rich-text" aria-label="Learning Center Articles (indexable)">
+                    <article id="article-content-1" class="article-entry">
+
                         <h2>The Science of Touch Typing: How to Break 100 WPM</h2>
                         <p class="text-xs text-outline mb-4">Published by Speedlab Editorial · 5 Min Read</p>
                         <p>Typing is not just a manual skill; it is a complex neurological process. When you touch type, your brain translates thoughts directly into finger movements without looking at the keyboard. This page-level focus on muscle memory is what separates professional typists from everyday users.</p>
