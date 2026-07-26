@@ -1,1156 +1,535 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Primary Meta Tags -->
-    <title>Speed Lab | Premium Typing Test & Network Diagnostics</title>
-    <meta name="title" content="Speed Lab | Premium Typing Test & Network Diagnostics">
-    <meta name="description" content="Speed Lab is a premium tool to test your typing speed (WPM) and analyze your internet connection latency, download, and upload speeds. Improve your skills today.">
-    <meta name="keywords" content="Speed Lab, typing test, typing speed, wpm test, internet speed test, network diagnostics, typing practice, ping test, latency test">
-    <meta name="author" content="Speed Lab">
-    <meta name="theme-color" content="#00dbe7">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="logo.png">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://speed-lab.vercel.app/">
-    <meta property="og:title" content="Speed Lab | Premium Typing Test & Network Diagnostics">
-    <meta property="og:description" content="Speed Lab is a premium tool to test your typing speed (WPM) and analyze your internet connection latency, download, and upload speeds. Improve your skills today.">
-    <meta property="og:image" content="https://speed-lab.vercel.app/logo.png">
-    <meta property="og:site_name" content="Speed Lab">
-    <meta name="application-name" content="Speed Lab">
-    <meta name="apple-mobile-web-app-title" content="Speed Lab">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Speed Lab",
-      "url": "https://speed-lab.vercel.app/"
-    }
-    </script>
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://speed-lab.vercel.app/">
-    <meta property="twitter:title" content="Speed Lab | Premium Typing Test & Network Diagnostics">
-    <meta property="twitter:description" content="Speed Lab is a premium tool to test your typing speed (WPM) and analyze your internet connection latency, download, and upload speeds. Improve your skills today.">
-    <meta property="twitter:image" content="https://speed-lab.vercel.app/logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SpeedLab</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
     <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary-fixed-dim": "#00dbe7",
-                        "on-primary-fixed": "#002022",
-                        "surface-variant": "#2e3637",
-                        "outline": "#849495",
-                        "outline-variant": "#3a494b",
-                        "on-surface": "#dce4e4",
-                        "on-surface-variant": "#b9cacb",
-                    },
-                    fontFamily: {
-                        "orbitron": ["Orbitron"],
-                        "mono": ["IBM Plex Mono"],
-                        "space": ["Space Mono"]
-                    }
-                }
-            }
-        }
+        tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface": "var(--surface)", "surface-dim": "var(--surface-dim)", "surface-bright": "var(--surface-bright)", "surface-container-lowest": "var(--surface-container-lowest)", "surface-container-low": "var(--surface-container-low)", "surface-container": "var(--surface-container)", "surface-container-high": "var(--surface-container-high)", "surface-container-highest": "var(--surface-container-highest)", "on-surface": "var(--on-surface)", "on-surface-variant": "var(--on-surface-variant)", "outline": "var(--outline)", "outline-variant": "var(--outline-variant)", "surface-tint": "var(--surface-tint)", "primary": "var(--primary)", "on-primary": "var(--on-primary)", "primary-container": "var(--primary-container)", "on-primary-container": "var(--on-primary-container)", "secondary": "var(--secondary)", "on-secondary": "var(--on-secondary)", "secondary-container": "var(--secondary-container)", "on-secondary-container": "var(--on-secondary-container)", "tertiary": "var(--tertiary)", "on-tertiary": "var(--on-tertiary)", "error": "var(--error)", "on-error": "var(--on-error)", "error-container": "var(--error-container)", "on-error-container": "var(--on-error-container)", "background": "var(--background)", "on-background": "var(--on-background)", "surface-variant": "var(--surface-variant)" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "xs": "8px", "sm": "16px", "container-padding": "20px", "xl": "64px", "base": "4px", "md": "24px", "lg": "40px", "gutter": "16px" }, "fontFamily": { "headline-xl": ["Inter"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-md": ["Inter"], "body-lg": ["Inter"], "body-md": ["Inter"], "label-md": ["Inter"], "label-sm": ["Inter"] }, "fontSize": { "headline-xl": ["40px", { "lineHeight": "48px", "fontWeight": "800" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "700" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }], "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }], "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }] } } } }
     </script>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
 </head>
-<body class="font-space antialiased h-screen flex flex-col overflow-hidden">
 
+<body class="min-h-screen pb-32 font-body-md text-body-md">
 
-    <!-- Mini Permanent Sidebar -->
-    <aside id="sidebar" class="fixed left-0 top-0 h-full z-[56] bg-black/95 backdrop-blur-2xl border-r border-outline-variant w-20 flex flex-col items-center py-8 transition-all duration-300">
-        <div class="mb-10">
-            <h1 class="font-orbitron text-lg text-primary-fixed-dim font-bold tracking-tighter">S<span class="text-[10px] block -mt-1 opacity-50">LAB</span></h1>
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar"
+        class="hidden md:flex fixed left-0 top-0 h-full w-[72px] z-50 bg-surface/80 backdrop-blur-2xl border-r border-white/10 flex-col items-center py-4 gap-4 shadow-[0_0_20px_rgba(0,240,255,0.1)]">
+        <div
+            class="mb-4 w-12 h-12 rounded-full bg-gradient-to-br from-primary-container to-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-primary-fixed text-xl"
+                style="font-variation-settings: 'FILL' 1;">bolt</span>
         </div>
-        
-        <nav class="flex flex-col gap-4 w-full px-2">
-            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="typing-section" title="Typing Test">
-                <span class="material-symbols-outlined text-[24px]">keyboard</span>
-                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Typing Test</span>
-            </a>
-            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="network-section" title="Network Analysis">
-                <span class="material-symbols-outlined text-[24px]">speed</span>
-                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Network Analysis</span>
-            </a>
-            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="history-section" title="History">
-                <span class="material-symbols-outlined text-[24px]">history</span>
-                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">History</span>
-            </a>
-            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="settings-section" title="Settings">
-                <span class="material-symbols-outlined text-[24px]">settings</span>
-                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Settings</span>
-            </a>
-            <a class="nav-tab active flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="guides-section" title="Learning Center">
-                <span class="material-symbols-outlined text-[24px]">menu_book</span>
-                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Learning Center</span>
-            </a>
-
-            <div class="w-10 h-px bg-outline-variant/50 mx-auto my-1"></div>
-
-            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="about-section" title="About Us">
-                <span class="material-symbols-outlined text-[24px]">info</span>
-                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">About Us</span>
-            </a>
-            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="contact-section" title="Contact Us">
-                <span class="material-symbols-outlined text-[24px]">mail</span>
-                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Contact Us</span>
-            </a>
-            <a class="nav-tab flex items-center justify-center w-full aspect-square rounded-2xl text-on-surface-variant hover:bg-white/5 transition-all group relative" href="#" data-target="privacy-section" title="Privacy Policy">
-                <span class="material-symbols-outlined text-[24px]">shield</span>
-                <span class="absolute left-full ml-4 px-3 py-1.5 bg-surface-variant text-on-surface text-[10px] rounded-lg opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap z-50">Privacy Policy</span>
-            </a>
+        <nav class="flex flex-col gap-1 w-full px-2">
+            <a class="nav-btn flex items-center justify-center w-full aspect-square rounded-xl text-on-surface-variant/70 hover:text-primary hover:bg-white/5 transition-all active:scale-90 relative"
+                href="#" data-page="dashboard" title="Dashboard"><span
+                    class="material-symbols-outlined text-[22px]">home</span></a>
+            <a class="nav-btn flex items-center justify-center w-full aspect-square rounded-xl text-on-surface-variant/70 hover:text-primary hover:bg-white/5 transition-all active:scale-90 relative"
+                href="#" data-page="typing" title="Typing Test"><span
+                    class="material-symbols-outlined text-[22px]">keyboard</span></a>
+            <a class="nav-btn flex items-center justify-center w-full aspect-square rounded-xl text-on-surface-variant/70 hover:text-primary hover:bg-white/5 transition-all active:scale-90 relative"
+                href="#" data-page="results" title="Results"><span
+                    class="material-symbols-outlined text-[22px]">analytics</span></a>
+            <a class="nav-btn flex items-center justify-center w-full aspect-square rounded-xl text-on-surface-variant/70 hover:text-primary hover:bg-white/5 transition-all active:scale-90 relative"
+                href="#" data-page="speed" title="Speed Test"><span
+                    class="material-symbols-outlined text-[22px]">speed</span></a>
+            <a class="nav-btn flex items-center justify-center w-full aspect-square rounded-xl text-on-surface-variant/70 hover:text-primary hover:bg-white/5 transition-all active:scale-90 relative"
+                href="#" data-page="leaderboard" title="Leaderboard"><span
+                    class="material-symbols-outlined text-[22px]">leaderboard</span></a>
+            <a class="nav-btn flex items-center justify-center w-full aspect-square rounded-xl text-on-surface-variant/70 hover:text-primary hover:bg-white/5 transition-all active:scale-90 relative"
+                href="#" data-page="profile" title="Profile"><span
+                    class="material-symbols-outlined text-[22px]">person</span></a>
         </nav>
-
-        <div class="mt-auto flex flex-col gap-4 w-full">
-            <button id="sound-toggle-side" class="p-3 text-on-surface-variant hover:text-primary-fixed-dim transition-colors mx-auto" onclick="toggleSound()" title="Toggle Sound">
-                <span class="material-symbols-outlined text-[20px]" id="sound-icon-side">volume_up</span>
+        <div class="mt-auto">
+            <button id="sound-toggle"
+                class="flex items-center justify-center w-full aspect-square rounded-xl text-on-surface-variant/70 hover:text-primary hover:bg-white/5 transition-all">
+                <span class="material-symbols-outlined text-[20px]">volume_up</span>
             </button>
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary-fixed-dim/10 text-primary-fixed-dim mx-auto">
-                <span class="material-symbols-outlined text-[18px]">sensors</span>
-            </div>
-
         </div>
     </aside>
 
-    <!-- Top Bar -->
-    <header class="w-full shrink-0 flex justify-between items-center px-5 pl-24 h-14 bg-black/90 backdrop-blur-xl border-b border-outline-variant z-50">
-        <div class="flex items-center gap-3">
-            <span class="font-orbitron text-base font-bold tracking-widest text-primary-fixed-dim">SPEEDLAB</span>
-        </div>
-        <!-- Mode Tabs in top bar -->
-        <div id="typing-mode-tabs" class="hidden flex items-center gap-1">
-            <div class="flex items-center gap-1 glass-card rounded-full px-2 py-1">
-                <!-- Test type -->
-                <button class="type-btn active-type px-3 py-1 font-mono text-xs rounded-full transition-all" data-type="time">TIME</button>
-                <button class="type-btn px-3 py-1 font-mono text-xs rounded-full transition-all" data-type="words">WORDS</button>
-                <button class="type-btn px-3 py-1 font-mono text-xs rounded-full transition-all" data-type="quote">QUOTE</button>
-                <button class="type-btn px-3 py-1 font-mono text-xs rounded-full transition-all" data-type="custom">CUSTOM</button>
+    <!-- Top App Bar -->
+    <header
+        class="fixed top-0 left-0 md:left-[72px] right-0 z-40 bg-surface/60 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+        <div class="flex justify-between items-center px-container-padding h-16 w-full">
+            <div class="flex items-center gap-sm">
+                <div class="w-9 h-9 rounded-full border-2 border-primary/40 overflow-hidden"><img
+                        class="w-full h-full object-cover" alt="Avatar"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvgvKHdfc4-s3jqWokS6MfBj-0DQ8JpTIAbXdpWXOt6FHMUElmMCqJgC-Te9KdLjTS9bRQgHvU9jVadspmDzQn5MZf2VBV7h5W03iYXT_0vkG1JFcbqGpIaKfUHH0E0UoXPqYUGDEpeaXnkKRy_JnLYiHDi6SF5754y7Q0HijuV8lygYVvkKNhjk4SiwUMtbtJXGfwq01zaNxdbl7ED7bQnyJLvKMXzaNKdjJOidZMxWJ-KCl87spXBg" />
+                </div>
+                <h1 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary tracking-tighter">
+                    SpeedLab</h1>
             </div>
-            <div class="w-px h-5 bg-outline-variant mx-1"></div>
-            <!-- Toggles -->
-            <button id="toggle-punct" class="option-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" title="Punctuation">@ . !</button>
-            <button id="toggle-nums" class="option-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" title="Numbers">1 2 3</button>
-            <div class="w-px h-5 bg-outline-variant mx-1"></div>
-            <!-- Amount selector -->
-            <div id="time-selector" class="flex items-center gap-1">
-                <button class="amount-btn active-amount px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="15">15</button>
-                <button class="amount-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="30">30</button>
-                <button class="amount-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="60">60</button>
-                <button class="amount-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="120">120</button>
+            <div class="flex items-center gap-sm">
+                <div
+                    class="flex items-center gap-xs bg-surface-container-high px-sm py-xs rounded-full border border-white/5">
+                    <span class="material-symbols-outlined text-primary text-sm"
+                        style="font-variation-settings: 'FILL' 1;">bolt</span>
+                    <span class="font-label-md text-label-md text-on-surface text-xs">7 Days</span>
+                </div>
+                <button
+                    class="h-9 w-9 rounded-full bg-surface-container-higher flex items-center justify-center text-primary border border-white/10 active:scale-95 transition-transform"><span
+                        class="material-symbols-outlined text-[20px]">notifications</span></button>
             </div>
-            <div id="words-selector" class="hidden flex items-center gap-1">
-                <button class="amount-btn active-amount px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="25">25</button>
-                <button class="amount-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="50">50</button>
-                <button class="amount-btn px-3 py-1 font-mono text-xs rounded-full glass-card transition-all" data-val="100">100</button>
-            </div>
-        </div>
-        <div class="flex items-center gap-1">
-            <button class="p-2 text-on-surface-variant hover:text-primary-fixed-dim transition-colors">
-                <span class="material-symbols-outlined text-[20px]">notifications</span>
-            </button>
-            <button class="p-2 text-on-surface-variant hover:text-primary-fixed-dim transition-colors">
-                <span class="material-symbols-outlined text-[20px]">account_circle</span>
-            </button>
         </div>
     </header>
 
-    <!-- Main -->
-    <main class="flex-1 w-full overflow-hidden flex justify-center pl-24 pr-4 md:pr-10 pb-2 bg-transparent">
-        <div class="max-w-[1100px] w-full h-full">
+    <!-- MAIN CONTENT -->
+    <main class="ml-0 md:ml-[72px] pt-20 px-container-padding max-w-5xl mx-auto min-h-screen">
 
-            <!-- ======================== TYPING SECTION ======================== -->
-            <section id="typing-section" class="tool-section h-full">
-
-                <!-- Stats Row -->
-                <div class="grid grid-cols-4 gap-3 mb-4">
-                    <div class="glass-card p-4 rounded-2xl flex flex-col">
-                        <span class="font-mono text-outline uppercase tracking-widest text-[9px] mb-1">WPM</span>
-                        <div id="wpm-val" class="font-orbitron text-3xl text-primary-fixed-dim">000</div>
+        <!-- DASHBOARD -->
+        <section id="page-dashboard" class="page-section">
+            <div class="mb-lg">
+                <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface"
+                    id="greeting-text">Hello, Alex</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Ready to break your record today?</p>
+            </div>
+            <!-- Start Test Hero -->
+            <div class="flex flex-col items-center justify-center py-lg relative">
+                <div class="relative group">
+                    <div
+                        class="absolute inset-0 rounded-full border-2 border-dashed border-primary/20 animate-[spin_10s_linear_infinite]">
                     </div>
-                    <div class="glass-card p-4 rounded-2xl flex flex-col">
-                        <span class="font-mono text-outline uppercase tracking-widest text-[9px] mb-1">RAW WPM</span>
-                        <div id="raw-val" class="font-orbitron text-3xl text-on-surface-variant">000</div>
-                    </div>
-                    <div class="glass-card p-4 rounded-2xl flex flex-col">
-                        <span class="font-mono text-outline uppercase tracking-widest text-[9px] mb-1">ACCURACY</span>
-                        <div id="acc-val" class="font-orbitron text-3xl text-primary-fixed-dim">100%</div>
-                    </div>
-                    <div class="glass-card p-4 rounded-2xl flex flex-col">
-                        <span class="font-mono text-outline uppercase tracking-widest text-[9px] mb-1" id="stat-label">TIMER</span>
-                        <div id="timer-val" class="font-orbitron text-3xl text-primary-fixed-dim">—</div>
-                    </div>
-                </div>
-
-                <!-- Typing Area -->
-                <div class="glass-card p-6 md:p-8 rounded-[20px] relative flex-1 flex flex-col overflow-hidden google-anno-skip" id="typing-area">
-                    <canvas id="sparks-canvas" class="absolute inset-0 pointer-events-none z-10"></canvas>
-                    <div class="absolute top-3 left-5 font-mono text-outline opacity-30 text-[8px] tracking-widest">TERMINAL_INPUT_BUFFER</div>
-                    <input type="text" id="hidden-input" autocomplete="off" spellcheck="false" class="absolute opacity-0 w-0 h-0 pointer-events-none">
-
-                    <!-- Custom text input (hidden by default) -->
-                    <div id="custom-input-area" class="hidden mb-4">
-                        <textarea id="custom-text-input" rows="3" placeholder="Apna text yahan likhein..." class="w-full bg-black/30 border border-outline-variant rounded-xl p-3 font-mono text-sm text-on-surface resize-none focus:outline-none focus:border-primary-fixed-dim"></textarea>
-                        <button onclick="setCustomText()" class="mt-2 px-6 py-2 bg-primary-fixed-dim text-on-primary-fixed font-mono text-xs rounded-full hover:brightness-110 transition-all">START CUSTOM TEST</button>
-                    </div>
-
-                    <!-- Quote selector (hidden by default) -->
-                    <div id="quote-selector" class="hidden mb-4 flex items-center gap-2">
-                        <span class="font-mono text-[11px] text-outline">DIFFICULTY:</span>
-                        <button class="diff-btn active-diff px-4 py-1 font-mono text-xs rounded-full glass-card transition-all" data-diff="easy">EASY</button>
-                        <button class="diff-btn px-4 py-1 font-mono text-xs rounded-full glass-card transition-all" data-diff="medium">MEDIUM</button>
-                        <button class="diff-btn px-4 py-1 font-mono text-xs rounded-full glass-card transition-all" data-diff="hard">HARD</button>
-                    </div>
-
-                    <div class="font-space text-xl md:text-2xl leading-loose text-on-surface/30 select-none overflow-hidden flex-1" id="typing-text" style="word-break: break-word;"></div>
-
-                    <!-- Bottom bar of typing area -->
-                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-outline-variant/50">
-                        <div class="flex items-center gap-3">
-                            <span class="font-mono text-[10px] text-outline">TAB = restart &nbsp;·&nbsp; ESC = reset</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <button id="btn-redo" class="p-2 glass-card hover:text-primary-fixed-dim text-on-surface-variant transition-all rounded-full" onclick="restartTest()" title="Restart (Tab)">
-                                <span class="material-symbols-outlined text-[18px]">replay</span>
-                            </button>
-                            <button id="btn-next" class="p-2 glass-card hover:text-primary-fixed-dim text-on-surface-variant transition-all rounded-full" onclick="nextTest()" title="Next">
-                                <span class="material-symbols-outlined text-[18px]">skip_next</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-
-            <!-- ======================== NETWORK SECTION ======================== -->
-            <section id="network-section" class="tool-section h-full google-anno-skip">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
-                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
-                        NETWORK DIAGNOSTICS
-                    </h2>
-                    <span class="font-mono text-outline text-[10px]">LOC: SUBSTATION-ANALYSIS</span>
-                </div>
-                <div class="glass-card p-6 flex flex-col items-center rounded-[20px]">
-                    <div class="absolute inset-0 opacity-5 pointer-events-none rounded-[20px]" style="background-image: linear-gradient(#00dbe7 1px, transparent 1px), linear-gradient(90deg, #00dbe7 1px, transparent 1px); background-size: 40px 40px;"></div>
-                    <div class="relative w-48 h-48 flex items-center justify-center mb-5">
-                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
-                            <defs>
-                                <linearGradient id="radar-grad" x1="0%" y1="100%" x2="0%" y2="0%">
-                                    <stop offset="0%" stop-color="rgba(0, 219, 231, 0)"></stop>
-                                    <stop offset="100%" stop-color="rgba(0, 219, 231, 0.8)"></stop>
-                                </linearGradient>
-                            </defs>
-                            <!-- Concentric radar circles -->
-                            <circle class="text-slate-800" cx="100" cy="100" fill="transparent" r="88" stroke="currentColor" stroke-width="6"></circle>
-                            <circle class="text-slate-800/25" cx="100" cy="100" fill="transparent" r="62" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"></circle>
-                            <circle class="text-slate-800/25" cx="100" cy="100" fill="transparent" r="36" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"></circle>
-                            <!-- Radar lines -->
-                            <line x1="12" y1="100" x2="188" y2="100" stroke="rgba(58, 73, 75, 0.2)" stroke-width="1"></line>
-                            <line x1="100" y1="12" x2="100" y2="188" stroke="rgba(58, 73, 75, 0.2)" stroke-width="1"></line>
-                            <!-- Sweeping beam -->
-                            <g id="radar-sweep" class="origin-center animate-[spin_4s_linear_infinite] hidden">
-                                <line x1="100" y1="100" x2="100" y2="12" stroke="url(#radar-grad)" stroke-width="3" stroke-linecap="round"></line>
-                                <polygon points="100,100 100,12 80,15" fill="rgba(0, 219, 231, 0.08)"></polygon>
-                            </g>
-                            <circle id="progress-circle" class="text-primary-fixed-dim" cx="100" cy="100" fill="transparent" r="88" stroke="currentColor" stroke-width="10" style="transition: stroke-dashoffset 0.5s ease-out;"></circle>
-                        </svg>
-                        <div class="absolute flex flex-col items-center">
-                            <span id="phase-name" class="font-mono text-outline tracking-widest uppercase text-[9px] mb-1">READY</span>
-                            <span id="speed-val" class="font-orbitron text-4xl text-primary-fixed-dim">0.0</span>
-                            <span class="font-mono text-primary-fixed-dim text-[10px] tracking-widest">MBPS</span>
-                            <span id="phase-status" class="font-mono text-[7px] text-outline uppercase mt-1 opacity-50">INITIALIZING...</span>
-                        </div>
-                    </div>
-                    <div id="internet-results" class="grid grid-cols-3 gap-6 w-full max-w-xl mb-5 opacity-0 transition-opacity duration-500">
-                        <div class="text-center">
-                            <div class="font-mono text-outline uppercase tracking-widest mb-1 text-[9px]">Latency</div>
-                            <div class="font-orbitron text-xl text-white"><span id="res-ping">--</span><span class="text-xs font-mono text-outline ml-1">MS</span></div>
-                        </div>
-                        <div class="text-center border-x border-outline-variant">
-                            <div class="font-mono text-outline uppercase tracking-widest mb-1 text-[9px]">Download</div>
-                            <div class="font-orbitron text-xl text-white"><span id="res-down">--</span><span class="text-xs font-mono text-outline ml-1">MBPS</span></div>
-                        </div>
-                        <div class="text-center">
-                            <div class="font-mono text-outline uppercase tracking-widest mb-1 text-[9px]">Upload</div>
-                            <div class="font-orbitron text-xl text-white"><span id="res-up">--</span><span class="text-xs font-mono text-outline ml-1">MBPS</span></div>
-                        </div>
-                    </div>
-                    <button id="btn-start-speed" class="bg-primary-fixed-dim text-on-primary-fixed px-10 py-3 font-orbitron text-xs tracking-widest hover:brightness-110 transition-all active:scale-95 rounded-full neon-glow">
-                        START ANALYSIS
+                    <button
+                        class="relative h-48 w-48 md:h-56 md:w-56 rounded-full bg-gradient-to-br from-primary-container to-secondary-container flex flex-col items-center justify-center text-white pulse-animation active:scale-90 transition-all duration-300"
+                        onclick="navigateTo('typing')">
+                        <span class="material-symbols-outlined text-5xl mb-xs"
+                            style="font-variation-settings: 'FILL' 1;">keyboard</span>
+                        <span class="font-headline-md text-headline-md uppercase tracking-widest drop-shadow-md">START
+                            TEST</span>
                     </button>
                 </div>
-            </section>
-
-            <!-- ======================== HISTORY SECTION ======================== -->
-            <section id="history-section" class="tool-section h-full google-anno-skip">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
-                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
-                        SESSION HISTORY
-                    </h2>
-                    <button onclick="clearHistory()" class="px-4 py-2 font-mono text-xs text-red-400 hover:text-red-300 glass-card rounded-full transition-all">CLEAR ALL</button>
+            </div>
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-sm mb-lg">
+                <div class="glass-card rounded-lg p-md flex flex-col items-center justify-center text-center"><span
+                        class="text-on-surface-variant font-label-md text-label-md uppercase mb-xs tracking-wider">Best</span><span
+                        class="font-headline-xl text-headline-xl text-primary neon-text-glow"
+                        id="dash-best-wpm">85</span><span class="text-primary font-label-sm text-label-sm">WPM</span>
                 </div>
-                <div id="history-list" class="space-y-3 overflow-y-auto" style="max-height: calc(100vh - 200px);">
-                    <div class="font-mono text-outline text-sm text-center py-10">No sessions recorded yet.</div>
+                <div class="glass-card rounded-lg p-md flex flex-col items-center justify-center text-center"><span
+                        class="text-on-surface-variant font-label-md text-label-md uppercase mb-xs tracking-wider">Accuracy</span><span
+                        class="font-headline-xl text-headline-xl text-secondary" id="dash-avg-acc">98%</span><span
+                        class="text-secondary font-label-sm text-label-sm">Average</span></div>
+                <div class="glass-card rounded-lg p-md flex flex-col items-center justify-center text-center"><span
+                        class="text-on-surface-variant font-label-md text-label-md uppercase mb-xs tracking-wider">Tests</span><span
+                        class="font-headline-xl text-headline-xl text-tertiary" id="dash-total-tests">142</span><span
+                        class="text-tertiary font-label-sm text-label-sm">Completed</span></div>
+                <div class="glass-card rounded-lg p-md flex flex-col items-center justify-center text-center"><span
+                        class="text-on-surface-variant font-label-md text-label-md uppercase mb-xs tracking-wider">Streak</span>
+                    <div class="flex items-center gap-xs"><span class="material-symbols-outlined text-primary text-3xl"
+                            style="font-variation-settings: 'FILL' 1;">bolt</span><span
+                            class="font-headline-xl text-headline-xl text-on-surface" id="dash-streak">7</span></div>
+                    <span class="text-on-surface-variant font-label-sm text-label-sm">Days Active</span>
                 </div>
-            </section>
-
-            <!-- ======================== SETTINGS SECTION ======================== -->
-            <section id="settings-section" class="tool-section h-full google-anno-skip">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
-                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
-                        SETTINGS
-                    </h2>
+            </div>
+            <!-- Speed Test Card -->
+            <div class="glass-card rounded-lg p-md mb-lg group hover:border-primary/40 transition-colors cursor-pointer"
+                onclick="navigateTo('speed')">
+                <div class="flex items-center gap-md">
+                    <div
+                        class="h-14 w-14 rounded-full bg-surface-container-highest flex items-center justify-center text-primary border border-white/5">
+                        <span class="material-symbols-outlined text-3xl">speed</span></div>
+                    <div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface">Internet Speed Test</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Ensure your connection is ready for
+                            ranked play.</p>
+                    </div>
                 </div>
-                <div class="glass-card p-6 rounded-[20px] space-y-6">
-                    <div class="flex items-center justify-between">
+            </div>
+            <!-- Recent Activity -->
+            <div class="mb-sm flex items-center justify-between">
+                <h2 class="font-headline-md text-headline-md text-on-surface">Recent Performance</h2><button
+                    class="text-primary font-label-md text-label-md" onclick="navigateTo('results')">View All</button>
+            </div>
+            <div class="space-y-sm" id="dash-recent-activity">
+                <div class="glass-card p-sm rounded-lg flex items-center justify-between">
+                    <div class="flex items-center gap-sm">
+                        <div class="h-10 w-10 rounded-md bg-tertiary/20 flex items-center justify-center text-tertiary">
+                            <span class="material-symbols-outlined">check_circle</span></div>
                         <div>
-                            <div class="font-mono text-sm text-on-surface">Sound Effects</div>
-                            <div class="font-mono text-[10px] text-outline mt-1">Keypress click sounds</div>
-                        </div>
-                        <button class="toggle-btn" id="sound-toggle-2" onclick="toggleSound()"><span class="toggle-knob"></span></button>
-                    </div>
-
-                    <div class="border-t border-outline-variant"></div>
-                    <div>
-                        <div class="font-mono text-sm text-on-surface mb-3">Caret Style</div>
-                        <div class="flex gap-2">
-                            <button class="caret-btn active-caret px-4 py-2 font-mono text-xs glass-card rounded-full" data-caret="line" onclick="setCaretStyle('line')">LINE |</button>
-                            <button class="caret-btn px-4 py-2 font-mono text-xs glass-card rounded-full" data-caret="block" onclick="setCaretStyle('block')">BLOCK ▌</button>
-                            <button class="caret-btn px-4 py-2 font-mono text-xs glass-card rounded-full" data-caret="underline" onclick="setCaretStyle('underline')">UNDERLINE _</button>
+                            <div class="font-label-md text-label-md text-on-surface">Classic Mode</div>
+                            <div class="font-label-sm text-label-sm text-on-surface-variant">Just now</div>
                         </div>
                     </div>
-                    <div class="border-t border-outline-variant"></div>
-                    <div>
-                        <div class="font-mono text-sm text-on-surface mb-1">Font Size</div>
-                        <input type="range" min="14" max="32" value="22" id="font-size-slider" class="w-full accent-primary-fixed-dim" oninput="setFontSize(this.value)">
-                        <div class="flex justify-between font-mono text-[9px] text-outline mt-1"><span>14px</span><span id="font-size-label">22px</span><span>32px</span></div>
+                    <div class="text-right">
+                        <div class="font-label-md text-label-md text-primary">0 WPM</div>
+                        <div class="font-label-sm text-label-sm text-on-surface-variant">0% Acc</div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- ======================== ABOUT US SECTION ======================== -->
-            <section id="about-section" class="tool-section h-full overflow-y-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
-                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
-                        ABOUT US
-                    </h2>
-                    <span class="font-mono text-outline text-[10px]">LOC: CORE-MANIFEST</span>
+        <!-- TYPING TEST -->
+        <section id="page-typing" class="page-section">
+            <div class="w-full text-center mt-lg space-y-sm">
+                <div class="text-[64px] font-extrabold text-primary neon-text-glow leading-none tracking-tight"
+                    id="typing-timer">00:30</div>
+                <div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-primary to-secondary-fixed-dim w-full shadow-[0_0_10px_rgba(0,240,255,0.5)]"
+                        id="typing-progress"></div>
                 </div>
-
-                <div class="glass-card p-6 md:p-8 rounded-[20px] space-y-6 mb-4">
-                    <!-- Mission -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">rocket_launch</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">OUR MISSION</h3>
-                        </div>
-                        <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
-                            SPEEDLAB is built for those who demand precision. We provide a premium, distraction-free environment to test and improve your typing speed, accuracy, and consistency. Our network diagnostics module also lets you analyze your internet connection latency, download, and upload speeds — all in one sleek, military-grade interface.
-                        </p>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <!-- What We Offer -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">deployed_code</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">WHAT WE OFFER</h3>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="glass-card p-4 rounded-xl">
-                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">keyboard</span>
-                                    Typing Speed Test
-                                </div>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed">Multiple modes — Time, Words, Quote, and Custom. Track your WPM, accuracy, and consistency with detailed session analytics.</p>
-                            </div>
-                            <div class="glass-card p-4 rounded-xl">
-                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">speed</span>
-                                    Network Diagnostics
-                                </div>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed">Analyze ping latency, download speeds, and upload throughput with our real-time diagnostic radar interface.</p>
-                            </div>
-                            <div class="glass-card p-4 rounded-xl">
-                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">history</span>
-                                    Session History
-                                </div>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed">All your typing sessions are saved locally. Review your progress over time and identify areas for improvement.</p>
-                            </div>
-                            <div class="glass-card p-4 rounded-xl">
-                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">tune</span>
-                                    Full Customization
-                                </div>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed">Sound effects, caret styles, font sizes, difficulty levels — configure every detail to match your preferences.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <!-- Tech Stack -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">code</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">BUILT WITH</h3>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">HTML5</span>
-                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">TailwindCSS</span>
-                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">Vanilla JavaScript</span>
-                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">Web Audio API</span>
-                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">Canvas API</span>
-                            <span class="px-3 py-1.5 glass-card rounded-full font-mono text-[10px] text-on-surface-variant">Cloudflare Speed API</span>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <!-- Version -->
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">verified</span>
-                            <span class="font-mono text-[11px] text-outline">VERSION 2.0 // PREMIUM EDITION</span>
-                        </div>
-                        <span class="font-mono text-[10px] text-primary-fixed-dim">© 2026 SPEEDLAB</span>
-                    </div>
+            </div>
+            <div class="flex gap-xs justify-center my-sm" id="typing-mode-selector">
+                <button
+                    class="px-md py-xs rounded-full text-label-md font-label-md bg-primary-container text-on-primary-container shadow-[0_0_15px_rgba(0,240,255,0.3)] mode-btn"
+                    data-mode="30">30s</button>
+                <button
+                    class="px-md py-xs rounded-full text-label-md font-label-md bg-surface-variant/50 border border-white/5 hover:bg-surface-variant transition-all mode-btn"
+                    data-mode="60">1m</button>
+                <button
+                    class="px-md py-xs rounded-full text-label-md font-label-md bg-surface-variant/50 border border-white/5 hover:bg-surface-variant transition-all mode-btn"
+                    data-mode="120">3m</button>
+            </div>
+            <div class="w-full glass-panel rounded-lg p-lg relative group" id="typing-area">
+                <div class="text-[24px] md:text-[28px] leading-[1.6] font-medium font-body-lg select-none"
+                    id="typing-text"><span class="text-on-surface-variant/40">Click here and start typing...</span>
                 </div>
-            </section>
-
-            <!-- ======================== CONTACT US SECTION ======================== -->
-            <section id="contact-section" class="tool-section h-full overflow-y-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
-                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
-                        CONTACT US
-                    </h2>
-                    <span class="font-mono text-outline text-[10px]">LOC: COMMS-CHANNEL</span>
+                <input type="text" id="typing-input-hidden" class="absolute opacity-0 w-0 h-0 pointer-events-none"
+                    autocomplete="off" spellcheck="false" />
+                <div
+                    class="absolute -top-1/2 -left-1/4 w-96 h-96 bg-primary/10 blur-[100px] rounded-full -z-10 pointer-events-none">
                 </div>
+            </div>
+            <div
+                class="w-full max-w-2xl mx-auto glass-panel rounded-full px-lg py-sm flex justify-around items-center gap-md border-primary/20 mt-md">
+                <div class="flex flex-col items-center"><span
+                        class="text-label-sm font-label-sm text-on-surface-variant/60 uppercase tracking-widest">WPM</span><span
+                        class="text-headline-md font-headline-md text-primary neon-text-glow" id="live-wpm">0</span>
+                </div>
+                <div class="h-8 w-[1px] bg-white/10"></div>
+                <div class="flex flex-col items-center"><span
+                        class="text-label-sm font-label-sm text-on-surface-variant/60 uppercase tracking-widest">Accuracy</span><span
+                        class="text-headline-md font-headline-md text-tertiary" id="live-acc">100%</span></div>
+                <div class="h-8 w-[1px] bg-white/10"></div>
+                <div class="flex flex-col items-center"><span
+                        class="text-label-sm font-label-sm text-on-surface-variant/60 uppercase tracking-widest">Errors</span><span
+                        class="text-headline-md font-headline-md text-error" id="live-errors">0</span></div>
+            </div>
+            <div class="flex gap-md items-center justify-center mt-sm">
+                <button
+                    class="flex items-center gap-xs px-lg py-sm border border-primary/30 rounded-lg font-label-md text-primary hover:bg-primary/10 transition-all active:scale-95"
+                    onclick="resetTypingTest()"><span class="material-symbols-outlined">restart_alt</span>
+                    Restart</button>
+            </div>
+        </section>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <!-- Contact Info -->
-                    <div class="glass-card p-6 md:p-8 rounded-[20px]">
-                        <div class="flex items-center gap-2 mb-5">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">hub</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">CONNECT WITH ME</h3>
-                        </div>
-                        <div class="space-y-5">
-                            <!-- Email -->
-                            <a href="mailto:zzawar521@gmail.com" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
-                                <div class="w-11 h-11 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0 group-hover:bg-primary-fixed-dim/20 transition-colors">
-                                    <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">mail</span>
-                                </div>
-                                <div>
-                                    <div class="font-mono text-[10px] text-outline uppercase tracking-widest">EMAIL</div>
-                                    <div class="font-mono text-sm text-on-surface group-hover:text-primary-fixed-dim transition-colors">zzawar521@gmail.com</div>
-                                </div>
-                                <span class="material-symbols-outlined text-outline text-[16px] ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
-                            </a>
-                            <!-- Portfolio -->
-                            <a href="https://zainulabdin-portfolio.vercel.app" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
-                                <div class="w-11 h-11 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0 group-hover:bg-primary-fixed-dim/20 transition-colors">
-                                    <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">web</span>
-                                </div>
-                                <div>
-                                    <div class="font-mono text-[10px] text-outline uppercase tracking-widest">PORTFOLIO</div>
-                                    <div class="font-mono text-sm text-on-surface group-hover:text-primary-fixed-dim transition-colors">zainulabdin-portfolio.vercel.app</div>
-                                </div>
-                                <span class="material-symbols-outlined text-outline text-[16px] ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
-                            </a>
-                            <!-- GitHub -->
-                            <a href="https://github.com/zaini12121" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
-                                <div class="w-11 h-11 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0 group-hover:bg-primary-fixed-dim/20 transition-colors">
-                                    <svg class="w-5 h-5 text-primary-fixed-dim" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                                </div>
-                                <div>
-                                    <div class="font-mono text-[10px] text-outline uppercase tracking-widest">GITHUB</div>
-                                    <div class="font-mono text-sm text-on-surface group-hover:text-primary-fixed-dim transition-colors">zaini12121</div>
-                                </div>
-                                <span class="material-symbols-outlined text-outline text-[16px] ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
-                            </a>
-                            <!-- LinkedIn -->
-                            <a href="https://www.linkedin.com/in/zain-ul-abdin-281985378/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
-                                <div class="w-11 h-11 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0 group-hover:bg-primary-fixed-dim/20 transition-colors">
-                                    <svg class="w-5 h-5 text-primary-fixed-dim" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                                </div>
-                                <div>
-                                    <div class="font-mono text-[10px] text-outline uppercase tracking-widest">LINKEDIN</div>
-                                    <div class="font-mono text-sm text-on-surface group-hover:text-primary-fixed-dim transition-colors">Zain Ul Abdin</div>
-                                </div>
-                                <span class="material-symbols-outlined text-outline text-[16px] ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
-                            </a>
-                        </div>
-                    </div>
+        <!-- RESULTS -->
+        <section id="page-results" class="page-section">
+            <div class="flex flex-col items-center justify-center py-lg relative overflow-hidden">
+                <div class="absolute -z-10 w-64 h-64 bg-primary/10 rounded-full blur-[80px]"></div>
+                <div
+                    class="relative w-56 h-56 rounded-full circular-gauge flex items-center justify-center animate-glow">
+                    <div class="z-10 flex flex-col items-center text-center"><span
+                            class="font-headline-xl text-headline-xl text-primary neon-text-glow leading-none"
+                            id="result-wpm">0</span><span
+                            class="font-label-md text-label-md text-on-surface-variant tracking-widest">WPM</span></div>
+                </div>
+                <div
+                    class="mt-md px-md py-xs rounded-full bg-primary-container/20 border border-primary/30 flex items-center gap-xs">
+                    <span class="material-symbols-outlined text-primary text-[20px]"
+                        style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+                    <span class="font-label-md text-label-md text-primary" id="result-rank">Faster than 85% of
+                        typists</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+                <div class="glass-card rounded-lg p-sm flex flex-col items-center text-center"><span
+                        class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Accuracy</span><span
+                        class="font-headline-md text-headline-md text-tertiary" id="result-accuracy">0%</span></div>
+                <div class="glass-card rounded-lg p-sm flex flex-col items-center text-center"><span
+                        class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Total Words</span><span
+                        class="font-headline-md text-headline-md text-primary" id="result-words">0</span></div>
+                <div class="glass-card rounded-lg p-sm flex flex-col items-center text-center"><span
+                        class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Errors</span><span
+                        class="font-headline-md text-headline-md text-error" id="result-errors">0</span></div>
+                <div class="glass-card rounded-lg p-sm flex flex-col items-center text-center"><span
+                        class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Time</span><span
+                        class="font-headline-md text-headline-md text-on-surface" id="result-time">0s</span></div>
+            </div>
+            <div class="glass-card rounded-lg p-md mt-md">
+                <div class="flex justify-between items-center mb-md">
+                    <h3 class="font-headline-md text-headline-md text-on-surface">Speed Consistency</h3><span
+                        class="font-label-sm text-label-sm text-on-surface-variant">Last session</span>
+                </div>
+                <div class="h-36 w-full relative flex items-end gap-1" id="result-chart"></div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-sm pt-md">
+                <button
+                    class="flex-1 h-14 rounded-lg bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-fixed font-headline-md text-headline-md flex items-center justify-center gap-xs shadow-[0_0_15px_rgba(0,240,255,0.4)] active:scale-95 transition-all"
+                    onclick="navigateTo('typing')"><span class="material-symbols-outlined">refresh</span> Try
+                    Again</button>
+            </div>
+        </section>
 
-                    <!-- Right side cards -->
-                    <div class="space-y-4">
-                        <div class="glass-card p-6 rounded-[20px]">
-                            <div class="flex items-center gap-2 mb-4">
-                                <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">language</span>
-                                <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">WEBSITE</h3>
-                            </div>
-                            <div class="space-y-3">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0">
-                                        <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">speed</span>
-                                    </div>
-                                    <div>
-                                        <div class="font-mono text-[10px] text-outline uppercase tracking-widest">SPEEDLAB</div>
-                                        <div class="font-mono text-sm text-on-surface">speed-lab.vercel.app</div>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-xl bg-primary-fixed-dim/10 flex items-center justify-center shrink-0">
-                                        <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">location_on</span>
-                                    </div>
-                                    <div>
-                                        <div class="font-mono text-[10px] text-outline uppercase tracking-widest">HQ LOCATION</div>
-                                        <div class="font-mono text-sm text-on-surface">Worldwide // Remote Operations</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="glass-card p-6 rounded-[20px]">
-                            <div class="flex items-center gap-2 mb-4">
-                                <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">schedule</span>
-                                <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">RESPONSE TIME</h3>
-                            </div>
-                            <p class="font-mono text-[11px] text-outline leading-relaxed mb-3">
-                                We typically respond within 24-48 hours. For urgent matters, please include "[URGENT]" in your email subject line.
-                            </p>
-                            <div class="flex items-center gap-2">
-                                <span class="w-2 h-2 bg-green-400 rounded-full shadow-[0_0_6px_rgba(74,222,128,0.5)] animate-pulse"></span>
-                                <span class="font-mono text-[10px] text-green-400">COMM CHANNELS ACTIVE</span>
-                            </div>
-                        </div>
-
-                        <div class="glass-card p-6 rounded-[20px]">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">bug_report</span>
-                                <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">BUG REPORTS</h3>
-                            </div>
-                            <p class="font-mono text-[11px] text-outline leading-relaxed">
-                                Found a bug or want to request a feature? Open an issue on our <a href="https://github.com/zaini12121" target="_blank" class="text-primary-fixed-dim hover:underline">GitHub repository</a> or send an email directly.
-                            </p>
-                        </div>
+        <!-- SPEED TEST -->
+        <section id="page-speed" class="page-section">
+            <div class="flex flex-col items-center justify-center relative py-lg">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
+                    <svg class="w-full h-full -rotate-90" viewbox="0 0 200 200">
+                        <circle cx="100" cy="100" fill="none" r="85" stroke="rgba(255,255,255,0.05)"
+                            stroke-linecap="round" stroke-width="12"></circle>
+                        <circle class="speed-gauge" cx="100" cy="100" fill="none" r="85" stroke="url(#speed-gradient)"
+                            stroke-linecap="round" stroke-width="12" style="stroke-dashoffset: 440;"></circle>
+                        <defs>
+                            <lineargradient id="speed-gradient" x1="0%" x2="100%" y1="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#dbfcff;stop-opacity:1"></stop>
+                                <stop offset="100%" style="stop-color:#ecffe3;stop-opacity:1"></stop>
+                            </lineargradient>
+                        </defs>
+                    </svg>
+                    <div class="absolute flex flex-col items-center justify-center text-center"><span
+                            class="text-on-surface-variant font-label-md uppercase tracking-[0.2em]">Download</span>
+                        <h1 class="font-headline-xl text-5xl md:text-6xl leading-none text-primary drop-shadow-[0_0_15px_rgba(0,240,255,0.5)]"
+                            id="speed-main">0</h1><span class="font-headline-md text-primary/80">Mbps</span>
                     </div>
                 </div>
-            </section>
-
-            <!-- ======================== PRIVACY POLICY SECTION ======================== -->
-            <section id="privacy-section" class="tool-section h-full overflow-y-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
-                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
-                        PRIVACY POLICY
-                    </h2>
-                    <span class="font-mono text-outline text-[10px]">LAST UPDATED: MAY 2026</span>
+                <button class="mt-lg relative group active:scale-95 transition-transform duration-200"
+                    onclick="startSpeedTest()">
+                    <div
+                        class="absolute inset-0 bg-primary opacity-20 blur-xl group-hover:opacity-40 transition-opacity">
+                    </div>
+                    <div
+                        class="relative w-28 h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-gradient-to-br from-primary-container to-secondary-container p-[2px]">
+                        <div
+                            class="w-full h-full rounded-full bg-surface-container flex items-center justify-center border border-white/10">
+                            <span
+                                class="font-headline-md text-primary tracking-widest text-center px-4 leading-tight text-sm"
+                                id="speed-btn-text">START TEST</span></div>
+                    </div>
+                </button>
+            </div>
+            <div class="grid grid-cols-3 gap-sm md:gap-md">
+                <div class="glass-panel p-md rounded-lg flex flex-col items-center justify-center space-y-xs"><span
+                        class="material-symbols-outlined text-primary"
+                        style="font-variation-settings: 'FILL' 1;">download</span>
+                    <p class="text-label-sm text-on-surface-variant">DOWNLOAD</p>
+                    <p class="font-headline-md text-primary" id="speed-down">0 <span
+                            class="text-sm font-normal">Mb/s</span></p>
                 </div>
-
-                <div class="glass-card p-6 md:p-8 rounded-[20px] space-y-6 mb-4">
-                    <!-- Intro -->
+                <div class="glass-panel p-md rounded-lg flex flex-col items-center justify-center space-y-xs"><span
+                        class="material-symbols-outlined text-secondary"
+                        style="font-variation-settings: 'FILL' 1;">upload</span>
+                    <p class="text-label-sm text-on-surface-variant">UPLOAD</p>
+                    <p class="font-headline-md text-secondary" id="speed-up">0 <span
+                            class="text-sm font-normal">Mb/s</span></p>
+                </div>
+                <div class="glass-panel p-md rounded-lg flex flex-col items-center justify-center space-y-xs"><span
+                        class="material-symbols-outlined text-tertiary"
+                        style="font-variation-settings: 'FILL' 1;">speed</span>
+                    <p class="text-label-sm text-on-surface-variant">PING</p>
+                    <p class="font-headline-md text-tertiary" id="speed-ping">0 <span
+                            class="text-sm font-normal">ms</span></p>
+                </div>
+            </div>
+            <div class="glass-panel p-md rounded-lg flex items-center justify-between gap-md mt-md">
+                <div class="flex items-center gap-md">
+                    <div
+                        class="w-14 h-14 rounded-lg bg-surface-container-highest overflow-hidden border border-white/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary">location_on</span></div>
                     <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">shield</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">OVERVIEW</h3>
-                        </div>
-                        <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
-                            SPEEDLAB ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website at <span class="text-primary-fixed-dim">speed-lab.vercel.app</span>.
-                        </p>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <!-- Data Collection -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">database</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">DATA COLLECTION</h3>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="glass-card p-4 rounded-xl">
-                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
-                                    Local Storage Only
-                                </div>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed">Your typing test results and session history are stored exclusively in your browser's localStorage. We do NOT send any typing data to external servers.</p>
-                            </div>
-                            <div class="glass-card p-4 rounded-xl">
-                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>
-                                    Network Speed Test
-                                </div>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed">The network diagnostics feature connects to third-party servers (Google, Cloudflare, httpbin.org) solely to measure your connection speed. No personal data is transmitted during these tests.</p>
-                            </div>
-                            <div class="glass-card p-4 rounded-xl">
-                                <div class="font-mono text-xs text-on-surface mb-1 flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
-                                    Advertising
-                                </div>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed">This site is currently published without ad slots so the learning pages and tools remain content-first. If advertising is added later, it should be placed only on pages with substantial editorial content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <!-- Cookies -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">cookie</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">COOKIES</h3>
-                        </div>
-                        <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
-                            SPEEDLAB itself does not set advertising cookies in the current build. Third-party services used by the site are limited to fonts, hosting, and the network test endpoints needed for the tools to function. You can manage or disable cookies through your browser settings.
-                        </p>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <!-- Third Party -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">link</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">THIRD-PARTY SERVICES</h3>
-                        </div>
-                        <div class="space-y-2">
-                            <div class="flex items-center gap-3 font-mono text-[11px] text-on-surface-variant">
-                                <span class="text-primary-fixed-dim">›</span>
-                                <span><strong class="text-on-surface">Google Fonts</strong> — Typography (Orbitron, IBM Plex Mono, Space Mono)</span>
-                            </div>
-                            <div class="flex items-center gap-3 font-mono text-[11px] text-on-surface-variant">
-                                <span class="text-primary-fixed-dim">›</span>
-                                <span><strong class="text-on-surface">Cloudflare</strong> — Speed test data endpoint</span>
-                            </div>
-                            <div class="flex items-center gap-3 font-mono text-[11px] text-on-surface-variant">
-                                <span class="text-primary-fixed-dim">›</span>
-                                <span><strong class="text-on-surface">Vercel</strong> — Website hosting</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <!-- User Rights -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">admin_panel_settings</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">YOUR RIGHTS</h3>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="flex items-start gap-2">
-                                <span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
-                                <p class="font-mono text-[11px] text-on-surface-variant">You can clear all locally stored data at any time from the History section.</p>
-                            </div>
-                            <div class="flex items-start gap-2">
-                                <span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
-                                <p class="font-mono text-[11px] text-on-surface-variant">The site does not show ads on the typing, network, history, or settings screens in this build.</p>
-                            </div>
-                            <div class="flex items-start gap-2">
-                                <span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
-                                <p class="font-mono text-[11px] text-on-surface-variant">You can manage cookies through your browser's privacy controls.</p>
-                            </div>
-                            <div class="flex items-start gap-2">
-                                <span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
-                                <p class="font-mono text-[11px] text-on-surface-variant">No account or personal information is required to use SPEEDLAB.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <!-- Children -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">child_care</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">CHILDREN'S PRIVACY</h3>
-                        </div>
-                        <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
-                            SPEEDLAB does not knowingly collect information from children under 13. Our website is intended for general audiences. If you believe a child has provided personal data, please contact us immediately.
-                        </p>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <!-- Changes -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">update</span>
-                            <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest">POLICY UPDATES</h3>
-                        </div>
-                        <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
-                            We may update this Privacy Policy from time to time. Changes will be reflected on this page with an updated revision date. We encourage you to review this policy periodically.
-                        </p>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <!-- Contact for Privacy -->
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">mail</span>
-                            <span class="font-mono text-[11px] text-outline">Questions? Contact us at <span class="text-primary-fixed-dim">zainulabdin-portfolio.vercel.app</span></span>
-                        </div>
-                        <span class="font-mono text-[10px] text-primary-fixed-dim">POLICY v1.0</span>
+                        <h3 class="font-headline-md text-headline-md text-on-surface">Cloudflare Edge</h3>
+                        <p class="text-label-sm text-primary/70">Frankfurt, DE</p>
                     </div>
                 </div>
-            </section>
+                <button
+                    class="px-md py-sm rounded-full bg-white/5 border border-white/10 hover:bg-white/10 font-label-md text-label-md text-on-surface transition-all"
+                    onclick="startSpeedTest()">Test Again</button>
+            </div>
+        </section>
 
-            <!-- ======================== LEARNING CENTER SECTION ======================== -->
-            <section id="guides-section" class="tool-section active h-full overflow-y-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
-                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
-                        LEARNING CENTER
-                    </h2>
-                    <span class="font-mono text-outline text-[10px]">LOC: CORE-DATABASE</span>
+        <!-- LEADERBOARD -->
+        <section id="page-leaderboard" class="page-section">
+            <div class="flex items-center justify-between mb-md">
+                <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Leaderboard</h2>
+                <div class="flex gap-xs bg-surface-container-high/40 p-1 rounded-full border border-white/5">
+                    <button
+                        class="px-sm py-1.5 rounded-full font-label-md text-label-md text-primary-container bg-primary-container/20 shadow-[0_0_12px_rgba(0,240,255,0.4)] lb-tab">Weekly</button>
+                    <button
+                        class="px-sm py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant transition-all lb-tab">All-Time</button>
                 </div>
-
-                <div class="glass-card p-6 md:p-8 rounded-[20px] mb-4 space-y-5">
-                    <div class="flex items-start justify-between gap-4 flex-wrap">
-                        <div class="max-w-2xl">
-                            <div class="font-mono text-[10px] tracking-[0.35em] text-primary-fixed-dim mb-3 uppercase">Publisher content first</div>
-                            <h3 class="font-orbitron text-xl md:text-2xl text-white leading-tight mb-3">Practical typing guidance, network basics, and keyboard advice in one place.</h3>
-                            <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
-                                SPEEDLAB is designed as a learning hub, not just a utility screen. The articles below explain how to improve typing accuracy, understand latency, choose better hardware, and interpret speed results so the page has clear editorial value for visitors.
-                            </p>
+            </div>
+            <div class="grid grid-cols-3 gap-sm items-end pt-lg pb-sm h-56 mb-md">
+                <div class="flex flex-col items-center gap-xs">
+                    <div class="w-14 h-14 rounded-full border-2 border-[#C0C0C0] p-0.5 overflow-hidden"><img
+                            class="w-full h-full rounded-full object-cover" alt="av"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGWsFuwfLOo4Go46biz1pkRoEeYk0Jd1SdvUNU4JgOzSk8O22RyKUZNAV-9GkVSb9acV3Cbs791qWcFhKGYFhRcbUbRrM9sqe7fbOz93B5llg5gVWH5dUmCdu3rULfaassKOioWxlt3KP7a7PjvGZD2sAbiVNbgdzR0Rz9Mf4TkT20ruxdlfUnQQRbA_9pJh-fhXxKIdoVd7CJ3wE5UufLXFwZ6Q1piqEQ2tUzVr4SWTeuyOrSJTeSDA" />
+                    </div>
+                    <p class="font-label-sm text-label-sm text-on-surface truncate w-20">SwiftKey</p>
+                    <p class="font-headline-md text-headline-md text-[#C0C0C0]">138 <span
+                            class="text-xs font-label-sm">WPM</span></p>
+                    <div class="w-full h-20 glass-panel rounded-t-lg podium-2-bg"></div>
+                </div>
+                <div class="flex flex-col items-center gap-xs relative -top-4">
+                    <div class="w-20 h-20 rounded-full border-4 border-[#FFD700] p-0.5 overflow-hidden"><img
+                            class="w-full h-full rounded-full object-cover" alt="av"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw9cuHkzAC8qWYkl_IFm6cnB16Lj6V9gnuGlyCHBICBPnBn779hCxLDn0Ixu1DaPRuXclZh4-WyeDOxRXmKQ_hO597CvUCMf9stVF6yR8TZ2a8bjr7DfpYMwghWX1hGwbzQqdVKHuOqbRBDnghzAyWvBdeBWKUJxrE3x9jPuE9q1XTuUFT3i4J0WKwU50Cf9r-Ymog75Oy9J4u6YBxOoQeYFDuWPjjtLhAs0wNqJdz1zxt7fAP9141fA" />
+                    </div>
+                    <p class="font-headline-md text-headline-md text-on-surface truncate w-28">NexusViper</p>
+                    <p class="font-headline-xl text-headline-xl text-[#FFD700]">145 <span
+                            class="text-sm font-label-md">WPM</span></p>
+                    <div class="w-full h-24 glass-panel rounded-t-lg podium-1-bg"></div>
+                </div>
+                <div class="flex flex-col items-center gap-xs">
+                    <div class="w-14 h-14 rounded-full border-2 border-[#CD7F32] p-0.5 overflow-hidden"><img
+                            class="w-full h-full rounded-full object-cover" alt="av"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY1E6OBP2CREzckoqv2Nrt5dKWvTTev8NPenk9DgJqhHgH_O0Ixr4SoYUq4mLSRGI1uy8QrUUrHlLNoz6s63g5vAjfBHWtZlbbB7QN1zoYbpMLxf-0svGQGb-g4f2HHDt7MRQ3_utPx7Vn_-w9Hw_Ocmd5f-rQPfqNRF3IijDhGmNuDwH9cNn69ayuRbF7OjiEvB7NI9gANh-csPSJsGXOUSo1aImaV7X_sSV5qhuGT2UBBuOq2ioa_A" />
+                    </div>
+                    <p class="font-label-sm text-label-sm text-on-surface truncate w-20">GhostType</p>
+                    <p class="font-headline-md text-headline-md text-[#CD7F32]">132 <span
+                            class="text-xs font-label-sm">WPM</span></p>
+                    <div class="w-full h-16 glass-panel rounded-t-lg podium-3-bg"></div>
+                </div>
+            </div>
+            <div class="space-y-sm">
+                <div class="glass-panel p-sm rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-sm"><span
+                            class="font-headline-md text-headline-md text-on-surface-variant/50 w-8">4</span>
+                        <div>
+                            <p class="font-body-md text-body-md text-on-surface">HyperSonic</p>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant">128 WPM</p>
                         </div>
-                        <div class="grid grid-cols-2 gap-3 min-w-[220px]">
-                            <div class="glass-card p-3 rounded-xl">
-                                <div class="font-orbitron text-lg text-primary-fixed-dim">4</div>
-                                <div class="font-mono text-[10px] text-outline uppercase tracking-widest">Core articles</div>
-                            </div>
-                            <div class="glass-card p-3 rounded-xl">
-                                <div class="font-orbitron text-lg text-primary-fixed-dim">98%</div>
-                                <div class="font-mono text-[10px] text-outline uppercase tracking-widest">Accuracy focus</div>
-                            </div>
-                            <div class="glass-card p-3 rounded-xl">
-                                <div class="font-orbitron text-lg text-primary-fixed-dim">3</div>
-                                <div class="font-mono text-[10px] text-outline uppercase tracking-widest">Practice paths</div>
-                            </div>
-                            <div class="glass-card p-3 rounded-xl">
-                                <div class="font-orbitron text-lg text-primary-fixed-dim">0</div>
-                                <div class="font-mono text-[10px] text-outline uppercase tracking-widest">Thin pages</div>
+                    </div><span class="font-label-md text-label-md text-primary">Level 42</span>
+                </div>
+                <div class="glass-panel p-sm rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-sm"><span
+                            class="font-headline-md text-headline-md text-on-surface-variant/50 w-8">5</span>
+                        <div>
+                            <p class="font-body-md text-body-md text-on-surface">CyberPulse</p>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant">124 WPM</p>
+                        </div>
+                    </div><span class="font-label-md text-label-md text-primary">Level 38</span>
+                </div>
+                <div class="glass-panel p-sm rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-sm"><span
+                            class="font-headline-md text-headline-md text-on-surface-variant/50 w-8">6</span>
+                        <div>
+                            <p class="font-body-md text-body-md text-on-surface">EtherVoid</p>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant">121 WPM</p>
+                        </div>
+                    </div><span class="font-label-md text-label-md text-primary">Level 35</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFILE -->
+        <section id="page-profile" class="page-section">
+            <div class="glass-panel p-md rounded-lg flex flex-col items-center text-center gap-xs">
+                <div class="relative">
+                    <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-primary to-secondary mb-sm">
+                        <div
+                            class="w-full h-full rounded-full overflow-hidden bg-surface-container border-2 border-surface">
+                            <img class="w-full h-full object-cover" alt="Avatar"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2zhVas28y_C_h0lw_QSB1Y5AkND-8y5tTIeWolg1s3A_yzvOMiSuyxnBYtVLeVYTfb9V6YXi-wjXRKoRfXV0b85QPVvw09SXYWzl3rRFn7IkzrE4p47vQlyXj1SHEl_vufmsoDeL3gEronjpB5floIpe4-1yCOfKA6HXdHuDsHshyg_P0B61TrrusPG1Q7r4hidBTenPOAs7WYEzcSHef1-X7uXRKYrNQfAcofxonorYS6-P3CAwUbg" />
+                        </div>
+                    </div>
+                    <div
+                        class="absolute -bottom-2 -right-2 bg-primary text-on-primary-fixed px-3 py-1 rounded-full font-label-md text-label-sm shadow-[0_0_10px_rgba(0,240,255,0.8)] text-xs">
+                        PRO ELITE</div>
+                </div>
+                <h2 class="font-headline-lg text-headline-lg-mobile mt-sm text-gradient">Alex Typist</h2>
+                <p class="text-on-surface-variant font-body-md">Refining the flow state since 2022</p>
+            </div>
+            <div class="grid grid-cols-2 gap-sm mt-md">
+                <div class="glass-panel p-sm rounded-lg flex flex-col items-center justify-center gap-1"><span
+                        class="text-on-surface-variant font-label-md uppercase tracking-wider text-[10px]">WPM
+                        Improvement</span>
+                    <div class="flex items-center gap-1"><span
+                            class="material-symbols-outlined text-tertiary text-lg">trending_up</span><span
+                            class="font-headline-md text-tertiary">+12%</span></div>
+                </div>
+                <div class="glass-panel p-sm rounded-lg flex flex-col items-center justify-center gap-1"><span
+                        class="text-on-surface-variant font-label-md uppercase tracking-wider text-[10px]">Rank
+                        Percentile</span>
+                    <div class="flex items-center gap-1"><span
+                            class="material-symbols-outlined text-secondary text-lg">military_tech</span><span
+                            class="font-headline-md text-secondary">Top 2%</span></div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-sm mt-md">
+                <h3 class="font-label-md text-on-surface-variant px-1 uppercase">App Settings</h3>
+                <div class="glass-panel rounded-lg overflow-hidden divide-y divide-white/5">
+                    <div class="flex items-center justify-between p-md hover:bg-white/5 transition-colors cursor-pointer" id="dark-mode-toggle">
+                        <div class="flex items-center gap-sm"><span
+                                class="material-symbols-outlined text-primary">dark_mode</span><span
+                                class="font-body-md">Dark Mode</span></div>
+                        <div id="dark-mode-track" class="w-11 h-5 bg-primary-container/30 rounded-full relative p-0.5 transition-colors">
+                            <div id="dark-mode-knob"
+                                class="w-4 h-4 bg-primary rounded-full absolute right-0.5 transition-all shadow-[0_0_8px_rgba(0,240,255,1)]">
                             </div>
                         </div>
                     </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <div class="glass-card p-4 rounded-xl">
-                            <div class="font-mono text-[10px] text-primary-fixed-dim uppercase tracking-widest mb-2">What to read first</div>
-                            <p class="font-mono text-[11px] text-outline leading-relaxed">Start with the typing and accuracy articles if you want higher WPM. Then move to the network guide if you are comparing ping, jitter, and bandwidth.</p>
-                        </div>
-                        <div class="glass-card p-4 rounded-xl">
-                            <div class="font-mono text-[10px] text-primary-fixed-dim uppercase tracking-widest mb-2">How to use the tools</div>
-                            <p class="font-mono text-[11px] text-outline leading-relaxed">Run a short typing session, review the result modal, then open session history to compare accuracy and consistency over time.</p>
-                        </div>
-                        <div class="glass-card p-4 rounded-xl">
-                            <div class="font-mono text-[10px] text-primary-fixed-dim uppercase tracking-widest mb-2">Why this helps compliance</div>
-                            <p class="font-mono text-[11px] text-outline leading-relaxed">Pages that combine original articles, explanations, and clear navigation are less likely to look like low-value or under-construction screens.</p>
+                    <div class="flex items-center justify-between p-md hover:bg-white/5 transition-colors cursor-pointer" id="sound-effects-toggle">
+                        <div class="flex items-center gap-sm"><span
+                                class="material-symbols-outlined text-primary">volume_up</span><span
+                                class="font-body-md">Sound Effects</span></div>
+                        <div id="sound-effects-track" class="w-11 h-5 bg-primary-container/30 rounded-full relative p-0.5 transition-colors">
+                            <div id="sound-effects-knob"
+                                class="w-4 h-4 bg-primary rounded-full absolute right-0.5 transition-all shadow-[0_0_8px_rgba(0,240,255,1)]">
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="mt-4">
-                    <div class="font-mono text-[10px] tracking-[0.35em] text-primary-fixed-dim mb-2 uppercase">Publisher Content Intro</div>
-                    <p class="font-mono text-sm text-on-surface-variant leading-relaxed">
-                        Explore practical, step-by-step guidance for improving typing speed and understanding network performance. This Learning Center is content-first: articles below explain techniques you can apply immediately—without needing to run any tool first.
-                    </p>
+            </div>
+            <div class="flex flex-col gap-sm mt-md">
+                <h3 class="font-label-md text-on-surface-variant px-1 uppercase">Recent History</h3>
+                <div class="glass-panel p-sm rounded-lg flex items-center justify-between">
+                    <div class="flex items-center gap-sm">
+                        <div class="w-10 h-10 rounded bg-tertiary/20 flex items-center justify-center"><span
+                                class="material-symbols-outlined text-tertiary">keyboard_double_arrow_right</span></div>
+                        <div>
+                            <p class="font-body-md font-bold">124 WPM</p>
+                            <p class="text-on-surface-variant text-[10px] uppercase">Marathon Mode</p>
+                        </div>
+                    </div><span class="text-tertiary font-label-sm">+2.4%</span>
                 </div>
-
-                <!-- Reading View (Initially Hidden) -->
-                <div id="guide-reading-pane" class="hidden glass-card p-6 md:p-8 rounded-[20px] mb-4">
-
-                    <button onclick="closeArticle()" class="flex items-center gap-2 text-xs font-mono text-outline hover:text-primary-fixed-dim mb-6 transition-colors">
-                        <span class="material-symbols-outlined text-[16px]">arrow_back</span>
-                        BACK TO LEARNING CENTER
-                    </button>
-                    <div id="article-view-content" class="article-rich-text">
-                        <!-- Loaded dynamically -->
-                    </div>
+                <div class="glass-panel p-sm rounded-lg flex items-center justify-between">
+                    <div class="flex items-center gap-sm">
+                        <div class="w-10 h-10 rounded bg-secondary/20 flex items-center justify-center"><span
+                                class="material-symbols-outlined text-secondary">bolt</span></div>
+                        <div>
+                            <p class="font-body-md font-bold">138 WPM</p>
+                            <p class="text-on-surface-variant text-[10px] uppercase">Sprint Mode</p>
+                        </div>
+                    </div><span class="text-secondary font-label-sm">New Record</span>
                 </div>
+            </div>
+            <button id="logout-btn"
+                class="w-full p-md glass-panel rounded-lg flex items-center justify-center gap-sm text-error border-error/20 hover:bg-error/10 transition-colors mt-md"><span
+                    class="material-symbols-outlined">logout</span><span class="font-label-md">Logout</span></button>
+        </section>
 
-                <!-- Catalog View (Grid list of articles) -->
-                <div id="guide-catalog-pane" class="space-y-4 mb-4">
-                    <!-- Filters and Search -->
-                    <div class="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between glass-card p-4 rounded-xl">
-                        <!-- Filter Tabs -->
-                        <div class="flex flex-wrap gap-1">
-                            <button onclick="filterGuides('all')" class="guide-filter-btn active-amount px-4 py-1.5 font-mono text-[10px] rounded-full glass-card transition-all" data-category="all">ALL</button>
-                            <button onclick="filterGuides('typing')" class="guide-filter-btn px-4 py-1.5 font-mono text-[10px] rounded-full glass-card transition-all" data-category="typing">TYPING</button>
-                            <button onclick="filterGuides('network')" class="guide-filter-btn px-4 py-1.5 font-mono text-[10px] rounded-full glass-card transition-all" data-category="network">NETWORK</button>
-                            <button onclick="filterGuides('keyboard')" class="guide-filter-btn px-4 py-1.5 font-mono text-[10px] rounded-full glass-card transition-all" data-category="keyboard">KEYBOARDS</button>
-                        </div>
-                        <!-- Search Bar -->
-                        <div class="relative flex items-center">
-                            <span class="material-symbols-outlined absolute left-3 text-[16px] text-outline">search</span>
-                            <input type="text" id="guide-search" placeholder="Search guides..." oninput="searchGuides()" class="bg-black/30 border border-outline-variant rounded-full pl-9 pr-4 py-1.5 font-mono text-xs text-on-surface focus:outline-none focus:border-primary-fixed-dim w-full md:w-64">
-                        </div>
-                    </div>
-
-                    <!-- Cards Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="guides-grid">
-                        
-                        <!-- Card 1 -->
-                        <div class="guide-card glass-card p-5 rounded-2xl flex flex-col justify-between cursor-pointer border border-outline-variant/30" data-category="typing" data-id="1" onclick="openArticle(1)">
-                            <div>
-                                <div class="flex items-center justify-between mb-3">
-                                    <span class="px-2 py-0.5 rounded text-[8px] font-mono bg-primary-fixed-dim/15 text-primary-fixed-dim uppercase tracking-wider">TYPING TECHNIQUES</span>
-                                    <span class="font-mono text-[9px] text-outline">5 MIN READ</span>
-                                </div>
-                                <h3 class="font-orbitron text-sm text-white mb-2 group-hover:text-primary-fixed-dim transition-colors">The Science of Touch Typing: How to Break 100 WPM</h3>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed mb-4">Discover the mechanical and neurological principles behind fast typing. Learn how to train your muscle memory, optimize finger placement, and build consistent daily practice routines.</p>
-                            </div>
-                            <div class="flex items-center gap-1.5 text-[10px] font-mono text-primary-fixed-dim mt-auto">
-                                READ ARTICLE <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div class="guide-card glass-card p-5 rounded-2xl flex flex-col justify-between cursor-pointer border border-outline-variant/30" data-category="network" data-id="2" onclick="openArticle(2)">
-                            <div>
-                                <div class="flex items-center justify-between mb-3">
-                                    <span class="px-2 py-0.5 rounded text-[8px] font-mono bg-primary-fixed-dim/15 text-primary-fixed-dim uppercase tracking-wider">NETWORK SPEED</span>
-                                    <span class="font-mono text-[9px] text-outline">6 MIN READ</span>
-                                </div>
-                                <h3 class="font-orbitron text-sm text-white mb-2 group-hover:text-primary-fixed-dim transition-colors">Understanding Network Latency: Ping, Jitter, and Speed</h3>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed mb-4">A deep dive into network performance. Learn the difference between bandwidth and latency, what causes jitter, and how to optimize your connection for real-time applications.</p>
-                            </div>
-                            <div class="flex items-center gap-1.5 text-[10px] font-mono text-primary-fixed-dim mt-auto">
-                                READ ARTICLE <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="guide-card glass-card p-5 rounded-2xl flex flex-col justify-between cursor-pointer border border-outline-variant/30" data-category="typing" data-id="3" onclick="openArticle(3)">
-                            <div>
-                                <div class="flex items-center justify-between mb-3">
-                                    <span class="px-2 py-0.5 rounded text-[8px] font-mono bg-primary-fixed-dim/15 text-primary-fixed-dim uppercase tracking-wider">TYPING ACCURACY</span>
-                                    <span class="font-mono text-[9px] text-outline">4 MIN READ</span>
-                                </div>
-                                <h3 class="font-orbitron text-sm text-white mb-2 group-hover:text-primary-fixed-dim transition-colors">Accuracy vs. Speed: The Critical Balance in Typing</h3>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed mb-4">Why precision is the ultimate shortcut to speed. Analyze the backspace penalty, understand error-correction mechanics, and discover how to practice typing with zero mistakes.</p>
-                            </div>
-                            <div class="flex items-center gap-1.5 text-[10px] font-mono text-primary-fixed-dim mt-auto">
-                                READ ARTICLE <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="guide-card glass-card p-5 rounded-2xl flex flex-col justify-between cursor-pointer border border-outline-variant/30" data-category="keyboard" data-id="4" onclick="openArticle(4)">
-                            <div>
-                                <div class="flex items-center justify-between mb-3">
-                                    <span class="px-2 py-0.5 rounded text-[8px] font-mono bg-primary-fixed-dim/15 text-primary-fixed-dim uppercase tracking-wider">HARDWARE & LAYOUTS</span>
-                                    <span class="font-mono text-[9px] text-outline">5 MIN READ</span>
-                                </div>
-                                <h3 class="font-orbitron text-sm text-white mb-2 group-hover:text-primary-fixed-dim transition-colors">Keyboard Ergonomics and Layouts: QWERTY vs. Dvorak</h3>
-                                <p class="font-mono text-[11px] text-outline leading-relaxed mb-4">Explore the history and mechanics of different keyboard layouts. Compare the ubiquitous QWERTY layout with alternative ergonomic options like Dvorak and Colemak.</p>
-                            </div>
-                            <div class="flex items-center gap-1.5 text-[10px] font-mono text-primary-fixed-dim mt-auto">
-                                READ ARTICLE <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Articles Content (kept indexable for AdSense) -->
-                <div class="article-rich-text" aria-label="Learning Center Articles (indexable)">
-                    <article id="article-content-1" class="article-entry">
-
-                        <h2>The Science of Touch Typing: How to Break 100 WPM</h2>
-                        <p class="text-xs text-outline mb-4">Published by Speedlab Editorial · 5 Min Read</p>
-                        <p>Typing is not just a manual skill; it is a complex neurological process. When you touch type, your brain translates thoughts directly into finger movements without looking at the keyboard. This page-level focus on muscle memory is what separates professional typists from everyday users.</p>
-                        
-                        <h2>The Power of Muscle Memory</h2>
-                        <p>Touch typing relies on muscle memory (motor learning). By maintaining a consistent home row position (<strong>ASDF</strong> for the left hand, <strong>JKL;</strong> for the right hand), your brain maps each key to a specific finger trajectory. Looking at the keys disrupts this mapping and creates a cognitive bottleneck, forcing your brain to switch focus between the layout and the text on the screen.</p>
-                        
-                        <h2>Optimal Posture and Setup</h2>
-                        <p>Ergonomics play a massive role in typing speed. Poor physical setup leads to rapid fatigue and error rates. Keep your wrists straight and slightly elevated—never rest them flat on the desk or keyboard tray, which can lead to repetitive strain injuries (RSI). Your elbows should be at a 90-degree angle, and your feet flat on the floor.</p>
-                        <blockquote>"A healthy posture reduces physical strain, allowing muscle memory to handle keypresses effortlessly and without friction."</blockquote>
-                        
-                        <h2>Effective Practice Strategies</h2>
-                        <ul>
-                            <li><strong>Focus on accuracy first:</strong> Speed is a natural byproduct of accuracy. If you type fast but constantly make mistakes, you waste valuable seconds correcting them.</li>
-                            <li><strong>Practice in short, focused blocks:</strong> Devote 15-20 minutes daily rather than long, fatiguing sessions. Consistency is key to permanent motor adaptation.</li>
-                            <li><strong>Use varied texts:</strong> Don't just practice letters. Mix in common word arrays, numbers, punctuation, and code strings to build robust muscle memory.</li>
-                            <li><strong>Target your weak keys:</strong> Review your session history. Identify which characters have the highest mistake rates and practice custom lists containing those letters.</li>
-                        </ul>
-                        
-                        <h2>Conclusion</h2>
-                        <p>Breaking 100 WPM requires patience and deliberate practice. By eliminating the habit of looking at the keyboard and focusing on precision, your fingers will gradually glide across the layout with effortless speed.</p>
-                    </article>
-
-                    <article id="article-content-2">
-                        <h2>Understanding Network Latency: Ping, Jitter, and Speed</h2>
-                        <p class="text-xs text-outline mb-4">Published by Speedlab Systems Research · 6 Min Read</p>
-                        <p>We often judge internet connections solely by their download speed (megabits per second). However, for real-time applications like online gaming, video conferencing, and live streaming, speed is only half the equation. Network diagnostics like ping and jitter are critical metrics that define your digital responsiveness.</p>
-                        
-                        <h2>Bandwidth vs. Latency</h2>
-                        <p>To understand network performance, we must distinguish between two core concepts:</p>
-                        <ul>
-                            <li><strong>Bandwidth (Speed):</strong> The capacity of your network connection to transfer data over time. Think of it as a highway's width: a wider highway accommodates more cars simultaneously, but doesn't necessarily make them travel faster.</li>
-                            <li><strong>Latency (Ping):</strong> The time it takes for a single data packet to travel from your device to a remote server and return. It is measured in milliseconds (ms). Think of it as the speed limit or travel time on the highway.</li>
-                        </ul>
-                        
-                        <h2>What is Jitter?</h2>
-                        <p>Jitter is the variance in latency over time. If your ping constantly fluctuates between 20ms and 150ms, you have high jitter. This instability causes stuttering, disconnected calls, and lag. A stable connection has low jitter (ideally under 3ms), ensuring smooth real-time packet arrival.</p>
-                        
-                        <h2>Common Causes of High Latency</h2>
-                        <ul>
-                            <li><strong>Physical Distance:</strong> The further you are from the host server, the longer it takes for electrical or light signals to travel through copper and fiber optic cables.</li>
-                            <li><strong>Network Congestion:</strong> Too many devices on the same local network downloading large files, or heavy traffic on your Internet Service Provider's (ISP) local node.</li>
-                            <li><strong>Wireless Interference:</strong> Wi-Fi signals degrade due to physical obstructions (walls, doors), distance from the router, and interference from other electronics.</li>
-                        </ul>
-                        
-                        <h2>How to Optimize Your Connection</h2>
-                        <p>If you experience lag or slow load times, try the following network adjustments:</p>
-                        <ul>
-                            <li><strong>Use a Wired Connection:</strong> Connect your device via Ethernet rather than Wi-Fi to eliminate wireless interference and packet loss.</li>
-                            <li><strong>Quality of Service (QoS):</strong> Configure your router's QoS settings to prioritize gaming, calling, or media traffic over standard downloads.</li>
-                            <li><strong>Server Selection:</strong> In interactive applications, select servers geographically closest to you to minimize physical packet travel distance.</li>
-                        </ul>
-                        
-                        <h2>Conclusion</h2>
-                        <p>A fast internet connection is useless if it is unstable. Monitoring your latency and jitter is the key to ensuring smooth, uninterrupted digital interactions.</p>
-                    </article>
-
-                    <article id="article-content-3">
-                        <h2>Accuracy vs. Speed: The Critical Balance in Typing</h2>
-                        <p class="text-xs text-outline mb-4">Published by Speedlab Editorial · 4 Min Read</p>
-                        <p>In typing tests and daily work, there is a common debate: should you focus on moving your fingers as fast as possible, or on typing without errors? Data shows that accuracy is the true driver of typing speed. Precision is the ultimate shortcut to speed.</p>
-                        
-                        <h2>The Backspace Penalty</h2>
-                        <p>Many typists do not realize how costly a single mistake is. When you type an incorrect character, you must:</p>
-                        <ul>
-                            <li>Recognize the error (cognitive delay).</li>
-                            <li>Move your finger to the Backspace key.</li>
-                            <li>Press Backspace (deleting the character).</li>
-                            <li>Move your finger back to the correct key.</li>
-                            <li>Re-type the character.</li>
-                        </ul>
-                        <p>This process costs at least 3-5 keystrokes of time. In time-limited tests, a 95% accuracy run can easily have a lower net WPM than a calm, focused 99% accuracy run. The backspace penalty effectively halts your momentum.</p>
-                        
-                        <h2>Cognitive Load and Rhythm</h2>
-                        <p>Fast typing relies on rhythm. When you type rhythmically, your fingers move in a continuous flow. Making errors breaks this rhythm, forcing your brain to pause, reset, and re-establish the flow. This constant disruption increases mental fatigue and raises the likelihood of consecutive mistakes.</p>
-                        <blockquote>"Typing at a steady, rhythmic pace with zero errors is mathematically faster and less fatiguing than typing in bursts interrupted by errors."</blockquote>
-                        
-                        <h2>The "Slow Down to Speed Up" Technique</h2>
-                        <p>If your accuracy drops below 96%, you are typing faster than your current cognitive limit. To break through:</p>
-                        <ul>
-                            <li><strong>Intentionally slow down:</strong> Reduce your speed to a pace where you can maintain 98%+ accuracy.</li>
-                            <li><strong>Type rhythmically:</strong> Focus on hitting each key with equal force and rhythm.</li>
-                            <li><strong>Gradually accelerate:</strong> Increase speed only when you can consistently maintain high accuracy.</li>
-                        </ul>
-                        
-                        <h2>Conclusion</h2>
-                        <p>Do not chase raw speed. Build a foundation of perfect accuracy, and your brain will automatically optimize the movements to make you faster over time.</p>
-                    </article>
-
-                    <article id="article-content-4">
-                        <h2>Keyboard Ergonomics and Layouts: QWERTY vs. Dvorak</h2>
-                        <p class="text-xs text-outline mb-4">Published by Speedlab Hardware Lab · 5 Min Read</p>
-                        <p>The keyboard layout you use every day was designed in the 1870s for mechanical typewriters. QWERTY was created to prevent physical typebars from jamming, not for speed or comfort. Today, alternative layouts offer ergonomic benefits that reduce strain and improve efficiency.</p>
-                        
-                        <h2>The QWERTY Layout</h2>
-                        <p>QWERTY places common letter combinations far apart, forcing your fingers to make long jumps. This layout makes the left hand do about 57% of the work and leaves the home row underutilized. Only 32% of all keystrokes occur on the home row in QWERTY, forcing massive hand travel.</p>
-                        
-                        <h2>The Dvorak Layout</h2>
-                        <p>Patented in 1936 by Dr. August Dvorak, the Dvorak layout was designed for maximum comfort and speed. It places all vowels on the left side of the home row and the most common consonants on the right side. This maximizes home row usage (70% compared to QWERTY's 32%) and reduces finger travel by up to 60%, mitigating wrist fatigue.</p>
-                        
-                        <h2>The Colemak Layout</h2>
-                        <p>Colemak is a modern alternative designed in 2006. It keeps 17 keys from QWERTY in the same position (making it much easier to learn than Dvorak) but optimizes the rest for home row comfort and hand alternation. It has become popular among developers and writers who want ergonomic benefits without a massive learning curve.</p>
-                        
-                        <h2>Ergonomics Beyond Layouts</h2>
-                        <p>Layout is only part of keyboard comfort. Keep these hardware adjustments in mind:</p>
-                        <ul>
-                            <li><strong>Split Keyboards:</strong> Angle the keys to match the natural angle of your hands, preventing wrist pronation.</li>
-                            <li><strong>Mechanical Switches:</strong> Switches with tactile bumps (like tactile brown switches) help you feel when a key registers, preventing you from bottoming out keys and reducing joint fatigue.</li>
-                            <li><strong>Wrist Rests:</strong> Rest the palms (not the wrists) during pauses, keeping them hovering while typing.</li>
-                        </ul>
-                        
-                        <h2>Conclusion</h2>
-                        <p>Switching layouts requires a significant time investment to rebuild muscle memory, but for those suffering from strain or looking for maximum efficiency, it can be a life-changing adjustment.</p>
-                    </article>
-                </div>
-            </section>
-
-            <!-- ======================== TERMS OF SERVICE SECTION ======================== -->
-            <section id="terms-section" class="tool-section h-full overflow-y-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="font-orbitron text-lg text-white flex items-center gap-3">
-                        <span class="w-2 h-2 bg-primary-fixed-dim shadow-[0_0_8px_#00dbe7]"></span>
-                        TERMS OF SERVICE
-                    </h2>
-                    <span class="font-mono text-outline text-[10px]">LAST UPDATED: MAY 2026</span>
-                </div>
-
-                <div class="glass-card p-6 md:p-8 rounded-[20px] space-y-6 mb-4 font-mono text-sm text-on-surface-variant leading-relaxed">
-                    <div>
-                        <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest mb-3">1. ACCEPTANCE OF TERMS</h3>
-                        <p>By accessing and using SPEEDLAB (speed-lab.vercel.app), you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree, you are prohibited from using this site.</p>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <div>
-                        <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest mb-3">2. USE LICENSE</h3>
-                        <p>SPEEDLAB is an open-access utility web application. You are granted permission to use the typing test, network diagnostics tools, and educational guides for personal, non-commercial purposes. You must not exploit our services or endpoints (e.g., speed test servers) via automated scripts or scraping tools.</p>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <div>
-                        <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest mb-3">3. DISCLAIMER OF WARRANTIES</h3>
-                        <p>The materials and tools on SPEEDLAB are provided on an "as is" basis. SPEEDLAB makes no warranties, expressed or implied, and hereby disclaims all other warranties including, without limitation, implied warranties of merchantability, fitness for a particular purpose, or non-infringement of intellectual property.</p>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <div>
-                        <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest mb-3">4. LIMITATIONS OF LIABILITY</h3>
-                        <p>In no event shall SPEEDLAB or its developers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the tools on SPEEDLAB, even if notified orally or in writing of the possibility of such damage.</p>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <div>
-                        <h3 class="font-orbitron text-sm text-primary-fixed-dim tracking-widest mb-3">5. GOVERNING LAW</h3>
-                        <p>These terms and conditions are governed by and construed in accordance with international digital licensing standards, and you irrevocably submit to the exclusive jurisdiction of the courts in your local territory for any dispute resolution.</p>
-                    </div>
-
-                    <div class="border-t border-outline-variant/50"></div>
-
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">verified_user</span>
-                            <span class="font-mono text-[11px] text-outline">Compliance Version 1.0</span>
-                        </div>
-                        <span class="font-mono text-[10px] text-primary-fixed-dim">SPEEDLAB OPERATIONS</span>
-                    </div>
-                </div>
-            </section>
-
-        </div>
     </main>
 
-
-
-    <!-- Footer -->
-    <footer class="w-full shrink-0 flex justify-between items-center px-6 pl-24 py-2 bg-black/50 backdrop-blur-md border-t border-outline-variant z-50">
-        <div class="font-mono text-[9px] text-outline">© 2025 SPEEDLAB TACTICAL SYSTEMS</div>
-        <div class="flex items-center gap-4">
-            <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="about-section">ABOUT</a>
-            <span class="text-outline-variant text-[8px]">·</span>
-            <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="contact-section">CONTACT</a>
-            <span class="text-outline-variant text-[8px]">·</span>
-            <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="privacy-section">PRIVACY</a>
-            <span class="text-outline-variant text-[8px]">·</span>
-            <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="guides-section">GUIDES</a>
-            <span class="text-outline-variant text-[8px]">·</span>
-            <a href="#" class="nav-link font-mono text-[9px] text-outline hover:text-primary-fixed-dim transition-colors" data-target="terms-section">TERMS</a>
-            <span class="text-outline-variant text-[8px]">|</span>
-            <span class="font-mono text-[9px] text-primary-fixed-dim uppercase tracking-widest">System: Optimal</span>
-        </div>
-    </footer>
-
-
-
-    <!-- ======================== RESULT MODAL ======================== -->
-    <div id="result-overlay" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-2xl hidden items-center justify-center p-4 google-anno-skip">
-        <div class="glass-card p-8 rounded-[30px] max-w-3xl w-full border border-primary-fixed-dim/20 relative overflow-hidden">
-            <!-- Header -->
-            <div class="text-center mb-6 flex flex-col items-center">
-                <div class="font-mono text-primary-fixed-dim text-[10px] tracking-[0.8em] mb-3 animate-pulse">CONGRATULATIONS // SESSION COMPLETE</div>
-                <div class="relative inline-flex items-center justify-center p-6 my-2 mx-auto min-w-[200px]">
-                    <!-- Dynamic HUD rotating rings -->
-                    <div class="absolute inset-0 border border-dashed border-primary-fixed-dim/30 rounded-full animate-[spin_20s_linear_infinite]"></div>
-                    <div class="absolute inset-2 border border-dotted border-primary-fixed-dim/20 rounded-full animate-[spin_10s_linear_infinite_reverse]"></div>
-                    <div class="absolute -inset-1 border border-primary-fixed-dim/10 rounded-full animate-ping opacity-25" style="animation-duration: 3s"></div>
-                    <div id="result-rating" class="font-orbitron text-4xl md:text-5xl text-primary-fixed-dim drop-shadow-[0_0_12px_rgba(0,219,231,0.6)] z-10 relative select-none">ELITE</div>
-                </div>
-                <div id="result-rank-msg" class="font-mono text-outline text-xs mt-3"></div>
-            </div>
-
-            <!-- Main Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 modal-animate-1 opacity-0">
-                <div class="glass-card p-4 rounded-2xl text-center">
-                    <div class="font-mono text-outline text-[9px] mb-1">WPM</div>
-                    <div id="res-wpm" class="font-orbitron text-3xl text-primary-fixed-dim">000</div>
-                </div>
-                <div class="glass-card p-4 rounded-2xl text-center">
-                    <div class="font-mono text-outline text-[9px] mb-1">RAW WPM</div>
-                    <div id="res-raw" class="font-orbitron text-3xl text-on-surface-variant">000</div>
-                </div>
-                <div class="glass-card p-4 rounded-2xl text-center">
-                    <div class="font-mono text-outline text-[9px] mb-1">ACCURACY</div>
-                    <div id="res-acc" class="font-orbitron text-3xl text-primary-fixed-dim">100%</div>
-                </div>
-                <div class="glass-card p-4 rounded-2xl text-center">
-                    <div class="font-mono text-outline text-[9px] mb-1">CONSISTENCY</div>
-                    <div id="res-consistency" class="font-orbitron text-3xl text-on-surface-variant">0%</div>
-                </div>
-            </div>
-
-            <!-- WPM Graph -->
-            <div class="glass-card p-4 rounded-2xl mb-5 modal-animate-2 opacity-0">
-                <div class="font-mono text-[9px] text-outline mb-2 tracking-widest">WPM OVER TIME</div>
-                <canvas id="wpm-chart" height="80" class="w-full"></canvas>
-            </div>
-
-            <!-- Error info + time -->
-            <div class="grid grid-cols-3 gap-4 mb-6 modal-animate-3 opacity-0">
-                <div class="glass-card p-3 rounded-xl text-center">
-                    <div class="font-mono text-outline text-[9px] mb-1">ERRORS</div>
-                    <div id="res-errors" class="font-orbitron text-2xl text-red-400">0</div>
-                </div>
-                <div class="glass-card p-3 rounded-xl text-center">
-                    <div class="font-mono text-outline text-[9px] mb-1">CHARS</div>
-                    <div id="res-chars" class="font-orbitron text-2xl text-on-surface">0</div>
-                </div>
-                <div class="glass-card p-3 rounded-xl text-center">
-                    <div class="font-mono text-outline text-[9px] mb-1">TIME</div>
-                    <div id="res-time" class="font-orbitron text-2xl text-on-surface">0s</div>
-                </div>
-            </div>
-
-            <!-- Buttons -->
-            <div class="flex gap-3 justify-center modal-animate-4 opacity-0">
-                <button class="px-8 py-3 bg-primary-fixed-dim text-on-primary-fixed font-orbitron text-xs tracking-widest rounded-full hover:brightness-110 transition-all neon-glow" onclick="closeResult()">
-                    NEW SESSION
-                </button>
-                <button class="px-8 py-3 border border-outline-variant text-on-surface-variant font-orbitron text-xs tracking-widest rounded-full hover:border-primary-fixed-dim hover:text-primary-fixed-dim transition-all" onclick="restartSameTest()">
-                    RETRY SAME
-                </button>
-            </div>
-        </div>
-    </div>
+    <!-- Bottom Navigation for Mobile -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 px-container-padding pb-sm flex justify-around items-center h-20 z-40 md:hidden bg-surface-container/60 backdrop-blur-xl border-t border-white/10 shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+        <button
+            class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_8px_rgba(71,214,255,0.8)] bottom-nav-btn"
+            data-page="dashboard"><span class="material-symbols-outlined"
+                style="font-variation-settings: 'FILL' 1;">home</span><span
+                class="font-label-sm text-label-sm text-[10px]">Home</span></button>
+        <button class="flex flex-col items-center justify-center text-on-surface-variant/70 bottom-nav-btn"
+            data-page="typing"><span class="material-symbols-outlined">keyboard</span><span
+                class="font-label-sm text-label-sm text-[10px]">Typing</span></button>
+        <button class="flex flex-col items-center justify-center text-on-surface-variant/70 bottom-nav-btn"
+            data-page="speed"><span class="material-symbols-outlined">speed</span><span
+                class="font-label-sm text-label-sm text-[10px]">Speed</span></button>
+        <button class="flex flex-col items-center justify-center text-on-surface-variant/70 bottom-nav-btn"
+            data-page="leaderboard"><span class="material-symbols-outlined">leaderboard</span><span
+                class="font-label-sm text-label-sm text-[10px]">Ranking</span></button>
+        <button class="flex flex-col items-center justify-center text-on-surface-variant/70 bottom-nav-btn"
+            data-page="profile"><span class="material-symbols-outlined">person</span><span
+                class="font-label-sm text-label-sm text-[10px]">Profile</span></button>
+    </nav>
 
     <script src="script.js"></script>
 </body>
+
 </html>
